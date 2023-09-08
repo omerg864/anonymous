@@ -8,7 +8,7 @@ const config = dotenv.config();
 import userRouter from './routes/userRoutes.js';
 import postRouter from './routes/postRoutes.js';
 import hashtagRouter from './routes/hashtagRoutes.js';
-import banIpRouter from './routes/banIpRoutes.js';
+import messageRouter from './routes/messageRoutes.js';
 import groupRouter from './routes/groupRoutes.js';
 import commentRouter from './routes/commentRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
@@ -31,7 +31,7 @@ app.listen(PORT, () => {
 app.use("/api/user", userRouter);
 app.use("/api/post", postRouter);
 app.use("/api/hashtag", hashtagRouter);
-app.use("/api/banIp", banIpRouter);
+app.use("/api/message", messageRouter);
 app.use("/api/group", groupRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/report", reportRouter);

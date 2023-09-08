@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const banIpScheme = mongoose.Schema({
+const messageScheme = mongoose.Schema({
     first_var: {
         type: String,
         required: true,
@@ -12,4 +12,4 @@ const banIpScheme = mongoose.Schema({
     },
 }, { timestamps: true });
 
-export default mongoose.model('banIp', banIpScheme);
+export default mongoose.model('message', messageScheme);
