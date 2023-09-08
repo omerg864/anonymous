@@ -30,6 +30,10 @@ const userScheme = mongoose.Schema({
         type: Date,
         required: true
     },
+    admin: {
+        type: Boolean,
+        required: true
+    },
     profile_pic: {
         type: String,
         required: false
