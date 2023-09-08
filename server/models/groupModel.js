@@ -1,15 +1,27 @@
 import mongoose from 'mongoose';
 
 const groupScheme = mongoose.Schema({
-    first_var: {
+    title: {
         type: String,
         required: true,
         unique: true
     },
-    second_var: {
-        type: String,
+    description: {
+        type: String
+    },
+    open: {
+        type: Boolean,
         required: true
     },
+    members: {
+        type: Number,
+        required: true
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
 }, { timestamps: true });
 
-export default mongoose.model('group', groupScheme);
+export default mongoose.model('Group', groupScheme);

@@ -1,15 +1,27 @@
 import mongoose from 'mongoose';
 
 const postScheme = mongoose.Schema({
-    first_var: {
-        type: String,
-        required: true,
-        unique: true
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-    second_var: {
+    likes: {
+        type: Number,
+        required: true
+    },
+    content: {
         type: String,
         required: true
     },
+    type: {
+        type: String,
+        required: false
+    },
+    media: {
+        type: String,
+        required: false
+    }
 }, { timestamps: true });
 
-export default mongoose.model('post', postScheme);
+export default mongoose.model('Post', postScheme);

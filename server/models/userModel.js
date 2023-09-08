@@ -1,15 +1,51 @@
 import mongoose from 'mongoose';
 
 const userScheme = mongoose.Schema({
-    first_var: {
+    f_name: {
+        type: String,
+        required: true
+    },
+    l_name: {
+        type: String,
+        required: true
+    },
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    second_var: {
+    password: {
         type: String,
         required: true
     },
+    gender: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    dob: {
+        type: Date,
+        required: true
+    },
+    profile_pic: {
+        type: String,
+        required: false
+    },
+    savedPosts: {
+        type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+        required: false
+    },
+    groups: {
+        type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Group' }],
+        required: false
+    },
+    blocked: {
+        type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        required: false
+    },
 }, { timestamps: true });
 
-export default mongoose.model('user', userScheme);
+export default mongoose.model('User', userScheme);

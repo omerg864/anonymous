@@ -1,15 +1,25 @@
 import mongoose from 'mongoose';
 
 const reportScheme = mongoose.Schema({
-    first_var: {
-        type: String,
+    by: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        unique: true
+        ref: 'User'
     },
-    second_var: {
+    description: {
         type: String,
         required: true
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: false,
+    },
+    postId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
+        required: false,
+    }
 }, { timestamps: true });
 
-export default mongoose.model('report', reportScheme);
+export default mongoose.model('Report', reportScheme);

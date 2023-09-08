@@ -1,15 +1,22 @@
 import mongoose from 'mongoose';
 
 const hashtagScheme = mongoose.Schema({
-    first_var: {
-        type: String,
-        required: true,
-        unique: true
+    likes: {
+        type: Number,
+        required: true
     },
-    second_var: {
+    name: {
         type: String,
         required: true
     },
-}, { timestamps: true });
+    followers: {
+        type: Number,
+        required: true
+    },
+    posts: {
+        type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+        required: false
+    },
+});
 
-export default mongoose.model('hashtag', hashtagScheme);
+export default mongoose.model('Hashtag', hashtagScheme);
