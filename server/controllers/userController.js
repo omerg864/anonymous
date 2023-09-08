@@ -11,6 +11,7 @@ const generateToken = (id) => {
 
 const registerUser = asyncHandler(async (req, res, next) => {
     const {f_name, l_name, email, password, gender, address, dob } = req.body;
+    let dobObj = new Date(dob);
     const userExists = await User.findOne({ "email" : { $regex : new RegExp(email, "i") } });
     if (userExists) {
         res.status(400)
@@ -25,7 +26,8 @@ const registerUser = asyncHandler(async (req, res, next) => {
         password: hashedPassword,
         gender,
         address,
-        dob
+        dob: dobObj,
+        admin: false,
     });
     res.status(201).json({
         success: true,
@@ -50,6 +52,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
     delete user._doc["createdAt"]
     delete user._doc["updatedAt"]
     delete user._doc["__v"]
+    delete user._doc["_id"]
+    delete user._doc["admin"]
     res.status(200).json({
         success: true,
         user: {
