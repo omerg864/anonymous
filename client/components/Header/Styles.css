@@ -1,0 +1,97 @@
+/* Set a background color for the body */
+  body {
+       background-color: #000;
+      }
+    /* Style the search input */
+    #searchInput {
+        background-color: #000;
+        color: #888;
+        width: 10%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        position: absolute;
+        right: 800px;
+        top: 10px;
+    }
+    /* Style the buttons */
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: rgb(108, 114, 147);
+    }
+    /* Style the "Open Sidebar" button to be on the left */
+    #ButtonToSideBar {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 999;
+        font-size: 24px; /* Increase font size for visibility */
+        padding: 5px; /* Add some padding to make the button larger */
+        border-radius: 4px; /* Add rounded corners */
+    }
+    .closebtn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px; /* Increase font size for visibility */
+        color: #337ab7; /* Blue color */
+        cursor: pointer;
+    }
+    /* Style the "Messages" button */
+    #messagesButton {
+        color: rgb(108, 114, 147);
+    }
+    .dropdown .dropdown-toggle {
+        float: right;
+        margin-right: 10px;
+    }
+    /* Style the "Notifications" button */
+    #Notifications {
+        color: rgb(108, 114, 147);
+    }
+    /* Style the "Profile" button */
+    #Profile {
+        color: rgb(108, 114, 147);
+    }
+    /* Sidebar container */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0 ;        
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+/* Close button for the sidebar */
+.closebtn {
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    cursor: pointer;
+}
+/* Sidebar links */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+.sidebar ul li {
+    padding: 15px;
+}
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.sidebar ul li a:hover {
+    color: #337ab7;
+}
