@@ -9,11 +9,11 @@
     <title>Document</title>
 </head>
 <body class="background1">
-    <div class="background2 rounded p-3 w-50 d-flex justify-content-center flex-column text-xl-center m-3">
+    <div class="background2 rounded p-3 m-3 box">
         <h1 style="color: white;">Register</h1>
         <form class="form" id="register-form">
-            <div class="row mb-3">
-                <div class="col">
+            <div class="row mb-3 col-900 w-100">
+                <div class="col mb-3-900">
                     <div class="form-floating">
                         <input type="text" class="form-control background1 input" id="f_name" placeholder="First Name" required>
                         <label for="f_name" class="input-label">First Name</label>
@@ -28,7 +28,7 @@
                       <small id="l-name-error" class="redColor"></small>
                 </div>
               </div>
-              <div class="row mb-3">
+              <div class="row w-100 mb-3">
                     <div class="col">
                         <div class="form-floating">
                             <input type="email" class="form-control background1 input" id="email" placeholder="Email" required>
@@ -37,8 +37,8 @@
                         <small id="email-error" class="redColor"></small>
                     </div>
               </div>
-            <div class="row mb-3">
-                <div class="col">
+            <div class="row w-100 mb-3 col-900">
+                <div class="col mb-3-900">
                     <div class="form-floating">
                         <input type="password" class="form-control background1 input" id="password" placeholder="Password" required>
                         <label for="password" class="input-label">Password</label>
@@ -53,10 +53,13 @@
                       <small id="confirm-password-error" class="redColor"></small>
                 </div>
               </div>
-              <div class="sub-text">
-                <p class="greyColor m-0">*Please provide additional information to register</p>
+
+              <div class="row w-100">
+                <div class="col">
+                    <p class="greyColor m-0">*Please provide additional information to register</p>
+                  </div>
               </div>
-              <div class="row mb-3">
+              <div class="row w-100 mb-3">
                 <div class="col">
                     <div class="form-floating">
                         <input type="text" class="form-control background1 input" id="address" placeholder="Home Address" required>
@@ -65,19 +68,17 @@
                       <small id="address-error" class="redColor"></small>
                 </div>
               </div>
-              <div class="row mb-3">
-                    <div class="col">
-                        <div class="form-floating">
-                            <select class="form-select background1 input" id="gender" aria-label="Gender" required>
-                              <option selected value="male">Male</option>
-                              <option value="female">Female</option>
-                              <option value="other">Other</option>
-                            </select>
-                            <label for="gender" class="input-label">Gender</label>
-                          </div>
-                    </div>
-              </div>
-              <div class="row mb-3">
+              <div class="row col-900 w-100 mb-3">
+                <div class="col mb-3-900">
+                    <div class="form-floating">
+                        <select class="form-select background1 input" id="gender" aria-label="Gender" required>
+                          <option selected value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <label for="gender" class="input-label">Gender</label>
+                      </div>
+                </div>
                 <div class="col">
                     <div class="form-floating">
                         <input type="date" class="form-control background1 input" id="dob" placeholder="Date of Birth" required>
