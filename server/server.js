@@ -12,6 +12,7 @@ import messageRouter from './routes/messageRoutes.js';
 import groupRouter from './routes/groupRoutes.js';
 import commentRouter from './routes/commentRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
+import cors from 'cors';
 
 
 connectDB();
@@ -22,6 +23,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

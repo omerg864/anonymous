@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Register.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body class="background1">
+    <div class="background2 rounded p-3 w-50 d-flex justify-content-center flex-column text-xl-center m-3">
+        <h1 style="color: white;">Register</h1>
+        <form class="form" id="register-form">
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="text" class="form-control background1 input" id="f_name" placeholder="First Name" required>
+                        <label for="f_name" class="input-label">First Name</label>
+                      </div>
+                      <small id="f-name-error" class="redColor"></small>
+                </div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="text" class="form-control background1 input" id="l_name" placeholder="Last Name" required>
+                        <label for="l_name" class="input-label">Last Name</label>
+                      </div>
+                      <small id="l-name-error" class="redColor"></small>
+                </div>
+              </div>
+              <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="email" class="form-control background1 input" id="email" placeholder="Email" required>
+                            <label for="email" class="input-label">Email</label>
+                        </div>
+                        <small id="email-error" class="redColor"></small>
+                    </div>
+              </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="password" class="form-control background1 input" id="password" placeholder="Password" required>
+                        <label for="password" class="input-label">Password</label>
+                      </div>
+                      <small id="password-error" class="redColor"></small>
+                </div>
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="password" class="form-control background1 input" id="confirm-password" placeholder="Confirm Password" required>
+                        <label for="confirm-password" class="input-label">Confirm Password</label>
+                      </div>
+                      <small id="confirm-password-error" class="redColor"></small>
+                </div>
+              </div>
+              <div class="sub-text">
+                <p class="greyColor m-0">*Please provide additional information to register</p>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="text" class="form-control background1 input" id="address" placeholder="Home Address" required>
+                        <label for="address" class="input-label">Home Address</label>
+                      </div>
+                      <small id="address-error" class="redColor"></small>
+                </div>
+              </div>
+              <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            <select class="form-select background1 input" id="gender" aria-label="Gender" required>
+                              <option selected value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                            <label for="gender" class="input-label">Gender</label>
+                          </div>
+                    </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="date" class="form-control background1 input" id="dob" placeholder="Date of Birth" required>
+                        <label for="dob" class="input-label">Date of Birth</label>
+                    </div>
+                    <small id="dob-error" class="redColor"></small>
+                </div>
+          </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script type="module" src="Register.js"></script>
+</body>
+</html>
