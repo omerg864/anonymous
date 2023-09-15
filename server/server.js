@@ -13,11 +13,14 @@ import groupRouter from './routes/groupRoutes.js';
 import commentRouter from './routes/commentRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
 
 
 connectDB();
 
 const PORT = process.env.PORT || 5000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -38,12 +41,10 @@ app.use("/api/group", groupRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/report", reportRouter);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  app.use(express.static(path.join(__dirname, '../client/')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../', 'frontend', 'build', 'index.html'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../', 'client', 'pages', 'home', 'Home.html'));
   })
-}
 
 app.use(errorHandler);

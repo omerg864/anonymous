@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/UserModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { emailRegex, passwordRegex } from '../../client/utils/regex.js';
+import { emailRegex, passwordRegex } from '../utils/regex.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
