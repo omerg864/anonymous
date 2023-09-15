@@ -1,6 +1,6 @@
 
-import { emailRegex, passwordRegex } from "../../variables/regex.js";
-import { dateToString } from "../../functions/globalfunctions.js";
+import { emailRegex, passwordRegex } from "../../utils/regex.js";
+import { dateToString } from "../../utils/globalfunctions.js";
 
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // password changed input event jquery
     password.on("input", (e) => {
         checkPassword();
-        checkConfirmPassword();
+        if(confirmPassword.val() !== "")
+            checkConfirmPassword();
     });
 
     // confirm password changed input event jquery

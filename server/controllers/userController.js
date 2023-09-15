@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/UserModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { emailRegex, passwordRegex } from '../../client/utils/regex.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -12,6 +13,18 @@ const generateToken = (id) => {
 const registerUser = asyncHandler(async (req, res, next) => {
     const {f_name, l_name, email, password, gender, address, dob } = req.body;
     let dobObj = new Date(dob);
+    if(dobObj == "Invalid Date") {
+        res.status(400)
+        throw new Error('Invalid date of birth');
+    }
+    if (!emailRegex.test(email)) {
+        res.status(400)
+        throw new Error('Invalid email');
+    }
+    if (!passwordRegex.test(password)) {
+        res.status(400)
+        throw new Error('Invalid password');
+    }
     const userExists = await User.findOne({ "email" : { $regex : new RegExp(email, "i") } });
     if (userExists) {
         res.status(400)
