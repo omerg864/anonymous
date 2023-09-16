@@ -3,7 +3,6 @@ import { emailRegex, passwordRegex } from "../../utils/regex.js";
 import { dateToString } from "../../utils/globalfunctions.js";
 
 
-document.addEventListener("DOMContentLoaded", (event) => {
     let form = document.querySelector("#register-form");
     var f_name = $("#f_name");
     var f_nameError = $("#f-name-error");
@@ -173,5 +172,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return valid;
     }
 
-  });
 

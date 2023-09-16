@@ -44,7 +44,7 @@ app.use("/api/report", reportRouter);
   app.use(express.static(path.join(__dirname, '../client/')));
 
   app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../', 'client', 'pages', 'home', 'Home.html'));
+    res.sendFile(path.resolve(__dirname, '../', 'client', 'index.html'));
   })
 
 app.use(errorHandler);
