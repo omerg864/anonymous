@@ -4,41 +4,12 @@
     --article: rgb(25, 28, 36);
 }
 
-html,
-body {
-    background-color: #0000;
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
 .box {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 50%;
-}
-
-.background1 {
-    background-color: #000 !important;
-}
-
-.background2 {
-    background-color: rgb(25, 28, 36);
-}
-
-.whiteColor {
-    color: white !important;
-}
-
-.greyColor {
-    color: rgb(158, 158, 158) !important;
-}
-.redColor {
-    color: red;
 }
 
 .input {
