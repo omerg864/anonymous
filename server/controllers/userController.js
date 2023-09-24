@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/UserModel.js';
+import Post from '../models/PostModel.js';
+import Comment from '../models/CommentModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
@@ -77,13 +79,52 @@ const loginUser = asyncHandler(async (req, res, next) => {
 });
 
 
-const getUsers = asyncHandler(async (req, res, next) => {
-    const Users = await User.find();
+const getProfile = asyncHandler(async (req, res, next) => {
+    let id = req.params.id;
+    console.log(id);
+    let self = false;
+    if(!id || id == req.user._id) {
+        id = req.user._id;
+        self = true;
+    }
+    let user = await User.findById(id).populate('savedPosts').populate('groups').populate('blocked').populate('approved');
+    if (!user) {
+        res.status(400)
+        throw new Error('User not found');
+    }
+    let posts = [];
+    if(!self) {
+        if(!(req.user._id in user.approved)) {
+            res.status(400)
+            throw new Error('Unauthorized');
+        }
+        delete user._doc["savedPosts"];
+        delete user._doc["groups"];
+        delete user._doc["blocked"];
+        delete user._doc["approved"];
+    } else {
+        posts = await Post.find({user: req.user._id}).populate('user', ['-password', '-__v', '-admin', '-updatedAt']).sort({createdAt: -1});
+        for(let i = 0; i < posts.length; i++) {
+            let post = posts[i];
+            post = post._doc;
+            post["editable"] = true;
+            let comments = await Comment.find({post: post._id}).count();
+            post["comments"] = comments;
+            delete post["__v"];
+            posts[i] = post;
+        }
+    }
+    delete user._doc["password"];
+    delete user._doc["admin"];
+    delete user._doc["__v"];
+    delete user._doc["updatedAt"];
     res.status(200).json({
         success: true,
-        Users: Users
+        editable: self,
+        user: user,
+        posts
     });
 });
 
 
-export {getUsers, registerUser, loginUser};
+export {getProfile, registerUser, loginUser};

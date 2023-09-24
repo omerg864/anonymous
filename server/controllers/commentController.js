@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Comment from '../models/CommentModel.js';
 
-const getComments = asyncHandler(async (req, res, next) => {
+const getPostComments = asyncHandler(async (req, res, next) => {
     const Comments = await Comment.find();
     res.status(200).json({
         success: true,
@@ -10,4 +10,4 @@ const getComments = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getComments};
+export {getPostComments};

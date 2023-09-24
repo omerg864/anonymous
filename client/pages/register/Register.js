@@ -72,11 +72,13 @@ import { dateToString } from "../../utils/globalfunctions.js";
             l_name: l_name.val(),
             address: address.val(),
             gender: gender.val(),
-            dob: dateToString(new Date(dob.val()))
+            dob: dateToString(new Date(dob.val()), "en-US")
         };
         $.ajax({url: "http://localhost:5600/api/user/register", success: function(result){
-            console.log(result);
-        }, data: JSON.stringify(data), type: "POST", contentType: "application/json"});
+            history.pushState(null, null, "/login");
+        }, data: JSON.stringify(data), type: "POST", contentType: "application/json", error: function(err){
+            console.log(err);
+        }});
     }
     const validateClass = (element, isValid) =>{
         if(isValid) {

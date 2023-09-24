@@ -1,7 +1,7 @@
 
 
-const dateToString = (date) => {
-    return date.toLocaleDateString("en-US", {
+const dateToString = (date, type=undefined) => {
+    return date.toLocaleDateString(type, {
         year: "numeric",
         month: "numeric",
         day: "numeric",

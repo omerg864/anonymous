@@ -1,0 +1,133 @@
+.profile-image {
+    vertical-align: middle;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.left-section {
+    width: 40%;
+    height: fit-content;
+}
+
+.right-section {
+    width: 60%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-icon {
+    margin-right: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.info-text {
+    font-size: 1.3rem;
+    color: white;
+    text-decoration: none;
+    cursor: text;
+}
+
+.profile-name {
+    width: fit-content;
+    height: fit-content;
+    margin-top: auto;
+}
+
+.settings-button {
+    width: fit-content;
+    height: fit-content;
+    margin-left: auto;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.settings-button:hover {
+    background-color: #e6e6e6;
+}
+
+.settings-button:hover > svg {
+    color: black;
+}
+
+.post {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    flex: 1;
+    font-family: 'Garamond', 'Arial Narrow', Arial, sans-serif;
+}
+
+.post-container {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+}
+
+.post-icon {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+}
+
+.post-main-content {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+    font-weight: 500;
+}
+
+.post-media {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+}
+
+.post-canvas {
+    width: 100%;
+}
+
+.profile-grid {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1024px)  {
+    .profile-grid {
+        flex-direction: column;
+        
+    }
+
+    .right-section {
+        width: 100%;
+    }
+    .left-section {
+        width: 100%;
+    }
+}

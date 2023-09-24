@@ -50,6 +50,10 @@ const userScheme = mongoose.Schema({
         type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],
         required: false
     },
+    approved: {
+        type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],
+        required: false
+    }
 }, { timestamps: true });
 
 export default mongoose.model('User', userScheme);
