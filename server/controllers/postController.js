@@ -1,10 +1,53 @@
 import asyncHandler from 'express-async-handler';
 import Post from '../models/PostModel.js';
+import User from '../models/UserModel.js';
+import Comment from '../models/CommentModel.js';
+import { POST_LIMIT } from '../utils/consts.js';
 
-const getMyPosts = asyncHandler(async (req, res, next) => {
-    const posts = await Post.find({user: req.user._id});
+const getUserPosts = asyncHandler(async (req, res, next) => {
+    let id = req.params.id;
+    let self = false;
+    if(!req.user){
+        res.status(400)
+        throw new Error('Not Authorized');
+    }
+    if(!id || id == req.user._id) {
+        id = req.user._id;
+        self = true;
+    }
+    let user = await User.findById(id).populate('approved');
+    if (!user) {
+        res.status(400)
+        throw new Error('User not found');
+    }
+    let posts = [];
+    if(!self) {
+        if(!(req.user._id in user.approved)) {
+            res.status(400)
+            throw new Error('Unauthorized');
+        }
+    } else {
+        let page = req.query.page;
+        posts = await Post.find({user: req.user._id}).populate('user', ['-password', '-__v', '-admin', '-updatedAt']).limit(POST_LIMIT).skip(POST_LIMIT * page).sort({createdAt: -1});
+        for(let i = 0; i < posts.length; i++) {
+            let post = posts[i];
+            post = post._doc;
+            post["editable"] = true;
+            if(req.user._id in post.likes) {
+                post["liked"] = true;
+            } else {
+                post["liked"] = false;
+            }
+            post["likes"] = post["likes"].length;
+            let comments = await Comment.find({post: post._id}).count();
+            post["comments"] = comments;
+            delete post["__v"];
+            posts[i] = post;
+        }
+    }
     res.status(200).json({
         success: true,
+        editable: self,
         posts
     });
 });
@@ -26,4 +69,4 @@ const createPost = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getMyPosts, createPost};
+export {getUserPosts, createPost};

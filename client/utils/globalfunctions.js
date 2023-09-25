@@ -9,4 +9,8 @@ const dateToString = (date, type=undefined) => {
 
 };
 
-export {dateToString};
+const timeToString = (date) => {
+    return date.toLocaleTimeString("en-GB");
+}
+
+export {dateToString, timeToString};

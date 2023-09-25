@@ -5,6 +5,7 @@ import Comment from '../models/CommentModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
+import { POST_LIMIT } from '../utils/consts.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -91,7 +92,6 @@ const getProfile = asyncHandler(async (req, res, next) => {
         res.status(400)
         throw new Error('User not found');
     }
-    let posts = [];
     if(!self) {
         if(!(req.user._id in user.approved)) {
             res.status(400)
@@ -101,23 +101,6 @@ const getProfile = asyncHandler(async (req, res, next) => {
         delete user._doc["groups"];
         delete user._doc["blocked"];
         delete user._doc["approved"];
-    } else {
-        posts = await Post.find({user: req.user._id}).populate('user', ['-password', '-__v', '-admin', '-updatedAt']).sort({createdAt: -1});
-        for(let i = 0; i < posts.length; i++) {
-            let post = posts[i];
-            post = post._doc;
-            post["editable"] = true;
-            if(req.user._id in post.likes) {
-                post["liked"] = true;
-            } else {
-                post["liked"] = false;
-            }
-            post["likes"] = post["likes"].length;
-            let comments = await Comment.find({post: post._id}).count();
-            post["comments"] = comments;
-            delete post["__v"];
-            posts[i] = post;
-        }
     }
     delete user._doc["password"];
     delete user._doc["admin"];
@@ -127,7 +110,6 @@ const getProfile = asyncHandler(async (req, res, next) => {
         success: true,
         editable: self,
         user: user,
-        posts
     });
 });
 
