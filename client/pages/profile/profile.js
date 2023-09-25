@@ -4,7 +4,7 @@ import { dateToString } from "../../utils/globalfunctions.js";
 
 
 // get token from local storage
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmFlMDNjZDk3NTI5MDY0MWM1Y2IxMSIsImlhdCI6MTY5NTYwNjc4MiwiZXhwIjoxNjk4MTk4NzgyfQ.uaLLoIzdp7aeLc0dKXUvv1q1up4T57dbdZJtxC_igFM';
+const token = localStorage.getItem('token');
 
 const getData = () => {
     const urlParams = new URLSearchParams(window.location.search);
