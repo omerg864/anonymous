@@ -14,7 +14,7 @@ const createPost = asyncHandler(async (req, res, next) => {
     const post = await Post.create({
         title,
         content,
-        likes: 0,
+        likes: [],
         type,
         media,
         user: req.user._id

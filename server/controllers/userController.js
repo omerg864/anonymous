@@ -81,7 +81,6 @@ const loginUser = asyncHandler(async (req, res, next) => {
 
 const getProfile = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
-    console.log(id);
     let self = false;
     if(!id || id == req.user._id) {
         id = req.user._id;
@@ -108,6 +107,12 @@ const getProfile = asyncHandler(async (req, res, next) => {
             let post = posts[i];
             post = post._doc;
             post["editable"] = true;
+            if(req.user._id in post.likes) {
+                post["liked"] = true;
+            } else {
+                post["liked"] = false;
+            }
+            post["likes"] = post["likes"].length;
             let comments = await Comment.find({post: post._id}).count();
             post["comments"] = comments;
             delete post["__v"];

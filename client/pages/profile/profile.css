@@ -118,6 +118,38 @@
     width: 100%;
 }
 
+.post-btns {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.post-btn {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+}
+.post-btn:hover {
+    background-color: #e6e6e67b;
+}
+
+.post-reactions {
+    display: flex;
+    justify-content: space-between;
+    padding: 1px;
+}
+
+.post-counter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+}
+
 @media only screen and (max-width: 1024px)  {
     .profile-grid {
         flex-direction: column;
