@@ -7,10 +7,14 @@ const main = $('#main');
 const spinner = $('#spinner');
 
 $(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() == $(document).height()) {
-        let rem = localStorage.getItem('RemPosts') === 'true';
-        if(!isLoading && rem){
-            getMorePosts(true);
+    let hash = window.location.hash;
+    hash = hash.substring(1);
+    if(hash === 'profile'){
+        if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            let rem = localStorage.getItem('RemPosts') === 'true';
+            if(!isLoading && rem){
+                getMorePosts(true);
+            }
         }
     }
  });
