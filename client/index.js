@@ -1,4 +1,4 @@
-
+import { fetchProfileData } from './pages/profile/profile.js';
 
 window.addEventListener("popstate", (event) => {
     let hash = window.location.hash;
@@ -33,5 +33,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 const switchPage = (page) => {
     let main = $('#main');
     main.html(''); // clear main
-    main.load(`./pages/${page}/${page}.html`);
+    main.load(`./pages/${page}/${page}.html`, () => {
+        if(page === 'profile'){
+            fetchProfileData();
+        }
+    });
 }
