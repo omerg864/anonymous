@@ -12,6 +12,7 @@ import messageRouter from './routes/messageRoutes.js';
 import groupRouter from './routes/groupRoutes.js';
 import commentRouter from './routes/commentRoutes.js';
 import reportRouter from './routes/reportRoutes.js';
+import chatRouter from './routes/chatRoute.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
 
@@ -40,6 +41,7 @@ app.use("/api/message", messageRouter);
 app.use("/api/group", groupRouter);
 app.use("/api/comment", commentRouter);
 app.use("/api/report", reportRouter);
+app.use('/api/chat', chatRouter);
 
   app.use(express.static(path.join(__dirname, '../client/')));
 

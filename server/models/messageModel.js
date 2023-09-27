@@ -14,6 +14,11 @@ const messageScheme = mongoose.Schema({
     text: {
         type: String,
         required: true
+    },
+    chatId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Chat',
+        required: true
     }
 },  { timestamps: true });
 
