@@ -1,0 +1,57 @@
+.chats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.chat {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.8rem;
+    cursor: pointer;
+}
+
+.chat-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex: 1;
+}
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    flex: 1;
+    font-family: 'Garamond', 'Arial Narrow', Arial, sans-serif;
+}
+
+.chat-icon {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+}
+
+.chat-name {
+    margin: 0;
+}
+
+.chat-text {
+    padding-left: 0.4rem;
+}
+
+.chat-date {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    text-decoration: none;
+    cursor: text;
+}
+
+.chat-date:hover {
+    color: white;
+}

@@ -13,11 +13,11 @@ const timeToString = (date) => {
     return date.toLocaleTimeString("en-GB");
 }
 
-const insertPosts = (posts, postsContainer, editable) => {
+const insertPosts = (posts, postsContainer, editable, page) => {
     console.log(postsContainer);
     if(editable) {
         if(posts.length === 0) {
-            postsContainer.append(`<h2>No Posts To show</h2>`);
+            postsContainer.append(`<h2>No ${page ? "More" : ""} Posts To show</h2>`);
             localStorage.setItem('RemPosts', false);
         } else {
             for(let i = 0; i< posts.length; i++) {

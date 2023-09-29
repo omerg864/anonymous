@@ -12,26 +12,6 @@ const getMessages = asyncHandler(async (req, res, next) => {
     });
 });
 
-const searchChat = async (receiver, sender) => {
-    let chat;
-    let chats = await Chat.find({users: {$in: [sender]}});
-        chats = chats.filter(chatTemp => {
-            for(let i = 0; i < chatTemp.users.length; i++) {
-                if(receiver === chatTemp.users[i].toString()){
-                    return true;
-                }
-            }
-            return false;
-        })
-        if(!chats.length){
-            chat = await Chat.create({
-                users:[sender, receiver]
-            });
-        } else {
-            chat = chats[0];
-        }
-    return chat;
-}
 
 const newMessage = asyncHandler(async (req, res, next) => {
     if(!req.user){
@@ -40,9 +20,9 @@ const newMessage = asyncHandler(async (req, res, next) => {
     }
     const {receiver, text, chatId} = req.body;
     const sender = req.user._id;
-    if(!receiver || !text){
+    if(!receiver || !text || !chatId){
         res.status(400);
-        throw new Error('Receiver, text are required');
+        throw new Error('Receiver, text and chatID are required');
     }
     const receiverUser = await User.findById(receiver);
     if(!receiverUser){
@@ -54,13 +34,7 @@ const newMessage = asyncHandler(async (req, res, next) => {
         res.status(401);
         throw new Error('You are blocked by this user');
     }
-    let chat;
-    if(chatId) {
-        chat = await Chat.findById(chatId)
-    }
-    if(!chat || !chatId){
-        chat = await searchChat(receiver, sender);
-    }
+    const chat = await Chat.findById(chatId);
     const newMessage = await Message.create({
         sender,
         receiver,

@@ -1,4 +1,5 @@
 import { fetchProfileData } from './pages/profile/profile.js';
+import { fetchChatsData } from './pages/chats/chats.js';
 
 window.addEventListener("popstate", (event) => {
     let hash = window.location.hash;
@@ -34,8 +35,13 @@ const switchPage = (page) => {
     let main = $('#main');
     main.html(''); // clear main
     main.load(`./pages/${page}/${page}.html`, () => {
-        if(page === 'profile'){
-            fetchProfileData();
+        switch(page){
+            case 'profile':
+                fetchProfileData();
+                break;
+            case 'chats':
+                fetchChatsData();
+                break;
         }
     });
 }

@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Message from '../models/messageModel.js';
 import User from '../models/UserModel.js';
 import Chat from '../models/chatModel.js';
+import { CHAT_LIMIT } from '../utils/consts.js';
 
 
 //TODO: add approved data to check approved
@@ -10,7 +11,11 @@ const getChats = asyncHandler(async (req, res, next) => {
         res.status(401);
         throw new Error('Not authorized');
     }
-    let chats = await Chat.find({ users: { $in: [req.user._id] } }).populate('users', ['_id', 'f_name', 'l_name', 'profile_pic', 'approved']);
+    let page = parseInt(req.query.page);
+    if(!page) {
+        page = 0;
+    }
+    let chats = await Chat.find({ users: { $in: [req.user._id] } }).limit(CHAT_LIMIT).skip(CHAT_LIMIT * page).populate('users', ['_id', 'f_name', 'l_name', 'profile_pic', 'approved']);
     chats = await Promise.all(chats.map(async chat => {
         const lastMessage = await Message.find({ chatId: chat._id }).limit(1).sort({createdAt: -1});
         chat = chat.toObject();
@@ -21,7 +26,6 @@ const getChats = asyncHandler(async (req, res, next) => {
             }
         }
         for(let i = 0; i < chat.users.length; i++) {
-            console.log(chat.users[i].f_name);
             if(req.user._id in chat.users[i].approved) {
                 chat.users[i].approved = true;
             } else {
@@ -31,7 +35,9 @@ const getChats = asyncHandler(async (req, res, next) => {
                 chat.users[i].approved = false;
             }
         }
-        chat.lastMessage = lastMessage;
+        if(lastMessage.length > 0) {
+            chat.lastMessage = lastMessage[0];
+        }
         return chat;
     }));
     res.status(200).json({
@@ -41,4 +47,42 @@ const getChats = asyncHandler(async (req, res, next) => {
     });
 });
 
-export {getChats};
+// for private chat
+const searchChat = asyncHandler(async (req, res, next) => {
+    if(!req.user){
+        res.status(401);
+        throw new Error('Not authorized');
+    }
+    const {id} = req.params;
+    const otherUser = await User.findById(id);
+    if(!otherUser){
+        res.status(404);
+        throw new Error('User not found');
+    }
+    let chat;
+    let chats = await Chat.find({users: {$in: [req.user._id]}});
+        chats = chats.filter(chatTemp => {
+            return chatTemp.users.length === 2;
+        });
+        chats = chats.filter(chatTemp => {
+            for(let i = 0; i < chatTemp.users.length; i++) {
+                if(id === chatTemp.users[i].toString()){
+                    return true;
+                }
+            }
+            return false;
+        })
+        if(!chats.length){
+            chat = await Chat.create({
+                users:[req.user._id, otherUser._id]
+            });
+        } else {
+            chat = chats[0];
+        }
+    res.status(200).json({
+        success: true,
+        chatId: chat._id
+    });
+});
+
+export {getChats, searchChat};

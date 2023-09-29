@@ -94,8 +94,11 @@ const getProfile = asyncHandler(async (req, res, next) => {
     }
     if(!self) {
         if(!(req.user._id in user.approved)) {
-            res.status(400)
-            throw new Error('Unauthorized');
+            res.status(401).json({
+                success: true,
+                editable: false
+            });
+            return;
         }
         delete user._doc["savedPosts"];
         delete user._doc["groups"];

@@ -3,21 +3,13 @@
 <head>
     <link rel="stylesheet" href="/pages/chats/chats.css">
 </head>
-<!----------- 
-    server data attributes:
-    {
-        chats: [
-        {
-            id: string,
-            name?: string,
-            lastMessage: string,
-            lastMessageSender: boolean,
-            lastMessageTime: string,
-            unreadMessages: number
-        }
-        ]
-    }
-    ----->
-    
+    <section class="rounded m-2 p-2 w-100">
+        <h3>Chats</h3>
+        <div id="chats" class="chats">
+            <div class="rounded background2 w-100 p-2">
+                <button class="btn btn-primary w-100" id="group">New Group Chat</button>
+            </div>
+        </div>
+    </section>
 <script type="module" src="/pages/chats/chats.js"></script>
 </html>
