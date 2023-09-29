@@ -1,6 +1,7 @@
 
 import { emailRegex, passwordRegex } from "../../utils/regex.js";
 import { dateToString } from "../../utils/globalfunctions.js";
+import { CLIENT_URL } from "../../utils/consts.js";
 
 
     let form = document.querySelector("#register-form");
@@ -74,8 +75,8 @@ import { dateToString } from "../../utils/globalfunctions.js";
             gender: gender.val(),
             dob: dateToString(new Date(dob.val()), "en-US")
         };
-        $.ajax({url: "http://localhost:5600/api/user/register", success: function(result){
-            history.pushState(null, null, "/login");
+        $.ajax({url: `${CLIENT_URL}/api/user/register`, success: function(result){
+            window.location.href = `#login`;
         }, data: JSON.stringify(data), type: "POST", contentType: "application/json", error: function(err){
             console.log(err);
         }});

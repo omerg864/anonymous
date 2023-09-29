@@ -14,7 +14,6 @@ const timeToString = (date) => {
 }
 
 const insertPosts = (posts, postsContainer, editable, page) => {
-    console.log(postsContainer);
     if(editable) {
         if(posts.length === 0) {
             postsContainer.append(`<h2>No ${page ? "More" : ""} Posts To show</h2>`);

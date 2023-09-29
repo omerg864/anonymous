@@ -34,6 +34,10 @@ const userScheme = mongoose.Schema({
         type: Boolean,
         required: true
     },
+    verified: {
+        type: Boolean,
+        required: true
+    },
     ban: {
         type: Boolean,
         required: false

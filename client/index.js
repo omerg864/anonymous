@@ -1,5 +1,6 @@
 import { fetchProfileData } from './pages/profile/profile.js';
 import { fetchChatsData } from './pages/chats/chats.js';
+import { verifyUser } from './pages/verify/verify.js';
 
 window.addEventListener("popstate", (event) => {
     let hash = window.location.hash;
@@ -41,6 +42,9 @@ const switchPage = (page) => {
                 break;
             case 'chats':
                 fetchChatsData();
+                break;
+            case 'verify':
+                verifyUser();
                 break;
         }
     });

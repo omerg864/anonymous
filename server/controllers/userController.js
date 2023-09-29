@@ -3,6 +3,7 @@ import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
+import { sendMail } from '../utils/globalFunctions.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -41,7 +42,10 @@ const registerUser = asyncHandler(async (req, res, next) => {
         address,
         dob: dobObj,
         admin: false,
+        verified: false,
     });
+    sendMail(email, 'Anonymous Email Verification', 
+    'please verify your email by clicking on the link below\n' + `${process.env.CLIENT_URL}/?id=${user._id}#verify`);
     res.status(201).json({
         success: true,
         message: 'User created successfully'
@@ -84,9 +88,15 @@ const getProfile = asyncHandler(async (req, res, next) => {
         id = req.user._id;
         self = true;
     }
-    let user = await User.findById(id).populate('savedPosts').populate('groups').populate('blocked').populate('approved');
+    try {
+        let user = await User.findById(id).populate('savedPosts').populate('groups').populate('blocked').populate('approved');
+    } catch (err) {
+        res.status(400);
+        throw new Error('User not found');
+    }
     if (!user) {
-        res.status(400)
+        console.log("User not found");
+        res.status(400);
         throw new Error('User not found');
     }
     if(!self) {
@@ -113,5 +123,20 @@ const getProfile = asyncHandler(async (req, res, next) => {
     });
 });
 
+const verifyUserEmail = asyncHandler(async (req, res, next) => {
+    const id = req.params.id;
+    const user = await User.findById(id);
+    if(!user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+    user.verified = true;
+    await user.save();
+    res.status(200).json({
+        success: true,
+        message: 'User verified successfully'
+    });
+});
 
-export {getProfile, registerUser, loginUser};
+
+export {getProfile, registerUser, loginUser, verifyUserEmail};

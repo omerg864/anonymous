@@ -1,4 +1,5 @@
 import { dateToString, insertPosts } from "../../utils/globalfunctions.js";
+import { CLIENT_URL } from "../../utils/consts.js";
 
 
 // Const
@@ -37,7 +38,7 @@ const semiProfile = () => {
             isLoading = true;
             spinner.removeClass('d-none');
             main.addClass('d-none');
-            await $.ajax({url: `http://localhost:5600/api/chat/${id}`, headers: {
+            await $.ajax({url: `${CLIENT_URL}/api/chat/${id}`, headers: {
                 authorization: `Bearer ${token}`
             }, success: function(result){
                 console.log(result);
@@ -58,9 +59,7 @@ const semiProfile = () => {
 const fetchProfileData = async () => {
     localStorage.setItem('RemPosts', true);
     localStorage.setItem('page', 0);
-    await Promise.all([getUserData(), getMorePosts()]).catch(err => {
-        semiProfile();
-    });
+    await Promise.allSettled([getUserData(), getMorePosts()]);
     main.removeClass('d-none');
     spinner.addClass('d-none');
     isLoading = false;
@@ -76,13 +75,18 @@ const getUserData = async () => {
     }
     main.addClass('d-none');
     spinner.removeClass('d-none');
-    await $.ajax({url: `http://localhost:5600/api/user/profile/${id}`, headers: {
+    await $.ajax({url: `${CLIENT_URL}/api/user/profile/${id}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);
         insertUserData(result.user, result.editable);
     }, type: "GET", contentType: "application/json", error: function(err){
-        console.log(err);
+        console.log(err.responseJSON);
+        if(err.responseJSON.message !== 'User not found') {
+            semiProfile();
+        } else {
+            main.html(`<h2>${err.responseJSON.message}</h2>`);
+        }
     }});
 }
 
@@ -100,7 +104,7 @@ const getMorePosts = async (alone=false) => {
     if(!id) {
         id = '';
     }
-    await $.ajax({url: `http://localhost:5600/api/post/${id}?page=${page}`, headers: {
+    await $.ajax({url: `${CLIENT_URL}/api/post/${id}?page=${page}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);
@@ -111,7 +115,7 @@ const getMorePosts = async (alone=false) => {
             isLoading = false;
         }
     }, type: "GET", contentType: "application/json", error: function(err){
-        console.log(err);
+        console.log(err.responseJSON);
         if(alone) {
             spinner.addClass('d-none');
             isLoading = false;
@@ -150,7 +154,7 @@ const insertUserData = (userData, editable) => {
                 isLoading = true;
                 spinner.removeClass('d-none');
                 main.addClass('d-none');
-                await $.ajax({url: `http://localhost:5600/api/chat/${id}`, headers: {
+                await $.ajax({url: `${CLIENT_URL}/api/chat/${id}`, headers: {
                     authorization: `Bearer ${token}`
                 }, success: function(result){
                     console.log(result);

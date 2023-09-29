@@ -1,4 +1,5 @@
 import { dateToString, timeToString } from "../../utils/globalfunctions.js";
+import { CLIENT_URL } from "../../utils/consts.js";
 
 
 // Const
@@ -36,7 +37,7 @@ const getMoreChats = async (alone=false) => {
         spinner.removeClass('d-none');
     }
     let page = parseInt(localStorage.getItem('page', 0));
-    await $.ajax({url: `http://localhost:5600/api/chat/?page=${page}`, headers: {
+    await $.ajax({url: `${CLIENT_URL}/api/chat/?page=${page}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);
