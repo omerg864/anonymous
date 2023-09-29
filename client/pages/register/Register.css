@@ -12,20 +12,6 @@
     width: 50%;
 }
 
-.input {
-    color: rgb(108, 114, 147) !important;
-}
-
-.input-label{
-    background-color: transparent !important;
-    color: white !important;
-}
-
-.input-label::after{
-    background-color: transparent !important;
-    color: white !important;
-}
-
 .sub-text {
     display: flex;
     justify-content: start;
