@@ -34,6 +34,14 @@ const userScheme = mongoose.Schema({
         type: Boolean,
         required: true
     },
+    ban: {
+        type: Boolean,
+        required: false
+    },
+    resetToken: {
+        type: String,
+        required: false
+    },
     profile_pic: {
         type: String,
         required: false

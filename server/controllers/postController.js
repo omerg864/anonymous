@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
-import Post from '../models/PostModel.js';
-import User from '../models/UserModel.js';
-import Comment from '../models/CommentModel.js';
+import Post from '../models/postModel.js';
+import User from '../models/userModel.js';
+import Comment from '../models/commentModel.js';
 import { POST_LIMIT } from '../utils/consts.js';
 
 const getUserPosts = asyncHandler(async (req, res, next) => {

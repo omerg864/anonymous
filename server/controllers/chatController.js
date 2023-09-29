@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Message from '../models/messageModel.js';
-import User from '../models/UserModel.js';
+import User from '../models/userModel.js';
 import Chat from '../models/chatModel.js';
 import { CHAT_LIMIT } from '../utils/consts.js';
 

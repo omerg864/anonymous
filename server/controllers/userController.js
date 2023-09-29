@@ -1,11 +1,8 @@
 import asyncHandler from 'express-async-handler';
-import User from '../models/UserModel.js';
-import Post from '../models/PostModel.js';
-import Comment from '../models/CommentModel.js';
+import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
-import { POST_LIMIT } from '../utils/consts.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
