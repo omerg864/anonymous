@@ -10,6 +10,11 @@ const reportScheme = mongoose.Schema({
         type: String,
         required: true
     },
+    resolved: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

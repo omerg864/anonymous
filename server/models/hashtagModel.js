@@ -7,7 +7,8 @@ const hashtagScheme = mongoose.Schema({
     },
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     followers: {
         type: Number,
