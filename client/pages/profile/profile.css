@@ -150,6 +150,11 @@
     gap: 0.3rem;
 }
 
+.profile-map {
+    width: calc(100%);
+    height: 20rem;
+}
+
 @media only screen and (max-width: 1024px)  {
     .profile-grid {
         flex-direction: column;

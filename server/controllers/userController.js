@@ -12,7 +12,7 @@ const generateToken = (id) => {
 }
 
 const registerUser = asyncHandler(async (req, res, next) => {
-    const {f_name, l_name, email, password, gender, address, dob } = req.body;
+    const {f_name, l_name, email, password, gender, address, dob, location } = req.body;
     let dobObj = new Date(dob);
     if(dobObj == "Invalid Date") {
         res.status(400)
@@ -43,6 +43,10 @@ const registerUser = asyncHandler(async (req, res, next) => {
         dob: dobObj,
         admin: false,
         verified: false,
+        location: {
+            type: "Point",
+            coordinates: [location.longitude, location.latitude]
+        }
     });
     sendMail(email, 'Anonymous Email Verification', 
     'please verify your email by clicking on the link below\n' + `${process.env.CLIENT_URL}/?id=${user._id}#verify`);
@@ -63,6 +67,10 @@ const loginUser = asyncHandler(async (req, res, next) => {
     if (!isMatch) {
         res.status(400)
         throw new Error('Invalid email or password');
+    }
+    if(!user.verified) {
+        res.status(400)
+        throw new Error('Please verify your email');
     }
     const token = generateToken(user._id);
     delete user._doc["password"]

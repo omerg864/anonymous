@@ -6,29 +6,29 @@
     <div class="background2 rounded p-3 m-3 box">
         <h1 style="color: white;">Register</h1>
         <form class="form" id="register-form">
-            <div class="row mb-3 col-900 w-100">
+            <div class="row col-900 w-100">
                 <div class="col mb-3-900">
                     <div class="form-floating">
                         <input type="text" class="form-control background1 input" id="f_name" placeholder="First Name" required>
                         <label for="f_name" class="input-label">First Name</label>
                       </div>
-                      <small id="f-name-error" class="redColor"></small>
+                      <small id="f-name-error" class="redColor">&nbsp;</small>
                 </div>
                 <div class="col">
                     <div class="form-floating">
                         <input type="text" class="form-control background1 input" id="l_name" placeholder="Last Name" required>
                         <label for="l_name" class="input-label">Last Name</label>
                       </div>
-                      <small id="l-name-error" class="redColor"></small>
+                      <small id="l-name-error" class="redColor">&nbsp;</small>
                 </div>
               </div>
-              <div class="row w-100 mb-3">
+              <div class="row w-100">
                     <div class="col">
                         <div class="form-floating">
                             <input type="email" class="form-control background1 input" id="email" placeholder="Email" required>
                             <label for="email" class="input-label">Email</label>
                         </div>
-                        <small id="email-error" class="redColor"></small>
+                        <small id="email-error" class="redColor">&nbsp;</small>
                     </div>
               </div>
               <div class="row w-100">
@@ -36,7 +36,7 @@
                     <p class="greyColor m-0">*Password must contain at least 8 letters including 1 number, 1 uppercase letter and 1 lowercase letter</p>
                   </div>
               </div>
-            <div class="row w-100 mb-3 col-900">
+            <div class="row w-100 col-900">
                 <div class="col mb-3-900">
                     <div class="form-floating">
                         <input type="password" class="form-control background1 input" id="password" placeholder="Password" required>
@@ -49,7 +49,7 @@
                         <input type="password" class="form-control background1 input" id="confirm-password" placeholder="Confirm Password" required>
                         <label for="confirm-password" class="input-label">Confirm Password</label>
                       </div>
-                      <small id="confirm-password-error" class="redColor"></small>
+                      <small id="confirm-password-error" class="redColor">&nbsp;</small>
                 </div>
               </div>
               <div class="row w-100">
@@ -59,11 +59,12 @@
               </div>
               <div class="row w-100 mb-3">
                 <div class="col">
-                    <div class="form-floating">
-                        <input type="text" class="form-control background1 input" id="address" placeholder="Home Address" required>
-                        <label for="address" class="input-label">Home Address</label>
+                    <div class="form-floating" id="address-container">
+                        <input type="text" class="form-control background1 input suggest-bing" id="address" placeholder="City" required>
+                        <label for="address" class="input-label">City</label>
                       </div>
-                      <small id="address-error" class="redColor"></small>
+                      <small id="address-error" class="redColor">&nbsp;</small>
+                      <div id="myMap" style="position:relative;width: calc(100%); height: 15rem;"></div>
                 </div>
               </div>
               <div class="row col-900 w-100 mb-3">
@@ -82,11 +83,15 @@
                         <input type="date" class="form-control background1 input" id="dob" placeholder="Date of Birth" required>
                         <label for="dob" class="input-label">Date of Birth</label>
                     </div>
-                    <small id="dob-error" class="redColor"></small>
+                    <small id="dob-error" class="redColor">&nbsp;</small>
                 </div>
           </div>
               <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </div>
     <script type="module" type="text/javascript" src="/pages/register/Register.js"></script>
+    <script type='text/javascript'
+    src='http://www.bing.com/api/maps/mapcontrol?callback=getRegisterMap&key=AuCpwXwlSJugyDvnNHkTNeS5b1c6ZUCy01wmcNoL_IEbMAPx95wPB3x-Mq3A6Y0n' 
+    async defer>
+  </script>
 </html>

@@ -15,7 +15,13 @@ const getChats = asyncHandler(async (req, res, next) => {
     if(!page) {
         page = 0;
     }
-    let chats = await Chat.find({ users: { $in: [req.user._id] } }).limit(CHAT_LIMIT).skip(CHAT_LIMIT * page).populate('users', ['_id', 'f_name', 'l_name', 'profile_pic', 'approved']);
+    const search = req.query.search;
+    let chats;
+    if(search) {
+        chats = await Chat.find({ users: { $in: [req.user._id] } , name: { $regex: search, $options: 'i' } }).limit(CHAT_LIMIT).skip(CHAT_LIMIT * page).populate('users', ['_id', 'f_name', 'l_name', 'profile_pic', 'approved']);
+    } else {
+        chats = await Chat.find({ users: { $in: [req.user._id] } }).limit(CHAT_LIMIT).skip(CHAT_LIMIT * page).populate('users', ['_id', 'f_name', 'l_name', 'profile_pic', 'approved']);
+    }
     chats = await Promise.all(chats.map(async chat => {
         const lastMessage = await Message.find({ chatId: chat._id }).limit(1).sort({createdAt: -1});
         chat = chat.toObject();

@@ -1,5 +1,17 @@
 import mongoose from 'mongoose';
 
+const pointSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+        required: true
+    },
+    coordinates: {
+        type: [Number], // [longitude, latitude]
+        required: true
+    }
+});
+
 const userScheme = mongoose.Schema({
     f_name: {
         type: String,
@@ -24,6 +36,10 @@ const userScheme = mongoose.Schema({
     },
     address: {
         type: String,
+        required: true
+    },
+    location: {
+        type: pointSchema,
         required: true
     },
     dob: {

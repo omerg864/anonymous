@@ -26,6 +26,13 @@
     flex-direction: column;
 }
 
+.suggest-bing {
+    width: calc(100% - 1rem);
+    padding: 0 !important;
+    padding-left: 1rem !important;
+    padding-top: 0.5rem !important;
+}
+
 @media only screen and (max-width: 900px)  {
     .col-900 {
         flex-direction: column !important;

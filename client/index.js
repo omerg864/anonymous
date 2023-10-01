@@ -1,6 +1,6 @@
-import { fetchProfileData } from './pages/profile/profile.js';
 import { fetchChatsData } from './pages/chats/chats.js';
 import { verifyUser } from './pages/verify/verify.js';
+import { registerPage } from './pages/register/Register.js';
 
 window.addEventListener("popstate", (event) => {
     let hash = window.location.hash;
@@ -38,13 +38,17 @@ const switchPage = (page) => {
     main.load(`./pages/${page}/${page}.html`, () => {
         switch(page){
             case 'profile':
-                fetchProfileData();
+                main.addClass('d-none');
+                $('#spinner').removeClass('d-none');
                 break;
             case 'chats':
                 fetchChatsData();
                 break;
             case 'verify':
                 verifyUser();
+                break;
+            case 'register':
+                registerPage();
                 break;
         }
     });

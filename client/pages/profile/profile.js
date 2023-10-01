@@ -6,6 +6,28 @@ import { CLIENT_URL } from "../../utils/consts.js";
 var isLoading = true;
 const main = $('#main');
 const spinner = $('#spinner');
+var user = null;
+
+    window.getProfileMap = async () => {
+        var map = new Microsoft.Maps.Map('#address-map');
+        await fetchProfileData();
+        if(user && user.location) {
+            let location = user.location;
+            let latLon = new Microsoft.Maps.Location(location.coordinates[1], location.coordinates[0]);
+            let pin = new Microsoft.Maps.Pushpin(latLon);
+            map.entities.push(pin);
+            map.setView({ mapTypeId: Microsoft.Maps.MapTypeId.roadId,
+                center: new Microsoft.Maps.Location(location.coordinates[1], location.coordinates[0]),
+                zoom: 12 });
+        } else {
+            let latLon = new Microsoft.Maps.Location(25, -71);
+            let pin = new Microsoft.Maps.Pushpin(latLon);
+            map.entities.push(pin);
+            map.setView({ mapTypeId: Microsoft.Maps.MapTypeId.roadId,
+                center: new Microsoft.Maps.Location(25, -71),
+                zoom: 5 });
+        }
+    }
 
 $(window).scroll(function() {
     let hash = window.location.hash;
@@ -59,7 +81,7 @@ const semiProfile = () => {
 const fetchProfileData = async () => {
     localStorage.setItem('RemPosts', true);
     localStorage.setItem('page', 0);
-    await Promise.allSettled([getUserData(), getMorePosts()]);
+    await Promise.allSettled([getUserData(), getMorePosts()])
     main.removeClass('d-none');
     spinner.addClass('d-none');
     isLoading = false;
@@ -75,11 +97,13 @@ const getUserData = async () => {
     }
     main.addClass('d-none');
     spinner.removeClass('d-none');
+    let data = {func: 'getUserData'};
     await $.ajax({url: `${CLIENT_URL}/api/user/profile/${id}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);
         insertUserData(result.user, result.editable);
+        user = result.user;
     }, type: "GET", contentType: "application/json", error: function(err){
         console.log(err.responseJSON);
         if(err.responseJSON.message !== 'User not found') {
@@ -88,6 +112,7 @@ const getUserData = async () => {
             main.html(`<h2>${err.responseJSON.message}</h2>`);
         }
     }});
+    return data;
 }
 
 
@@ -174,5 +199,3 @@ const insertUserData = (userData, editable) => {
         message.parent().addClass('d-none');
     }
 };
-
-export { fetchProfileData };
