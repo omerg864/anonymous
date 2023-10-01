@@ -108,13 +108,10 @@ const getProfile = asyncHandler(async (req, res, next) => {
         res.status(400);
         throw new Error('User not found');
     }
-    if(!self) {
+    if(!self && !req.user.admin) {
         if(!(req.user._id in user.approved)) {
-            res.status(401).json({
-                success: true,
-                editable: false
-            });
-            return;
+            res.status(401);
+            throw new Error('Unauthorized');
         }
         delete user._doc["savedPosts"];
         delete user._doc["groups"];

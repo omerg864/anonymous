@@ -21,14 +21,14 @@ const getUserPosts = asyncHandler(async (req, res, next) => {
         throw new Error('User not found');
     }
     let posts = [];
-    if(!self) {
+    if(!self && !req.user.admin) {
         if(!(req.user._id in user.approved)) {
             res.status(400)
             throw new Error('Unauthorized');
         }
     } else {
         let page = req.query.page;
-        posts = await Post.find({user: req.user._id}).populate('user', ['-password', '-__v', '-admin', '-updatedAt']).limit(POST_LIMIT).skip(POST_LIMIT * page).sort({createdAt: -1});
+        posts = await Post.find({user: user._id}).populate('user', ['-password', '-__v', '-admin', '-updatedAt']).limit(POST_LIMIT).skip(POST_LIMIT * page).sort({createdAt: -1});
         for(let i = 0; i < posts.length; i++) {
             let post = posts[i];
             post = post._doc;

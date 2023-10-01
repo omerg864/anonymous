@@ -13,8 +13,8 @@ const timeToString = (date) => {
     return date.toLocaleTimeString("en-GB");
 }
 
+// TODO: add editable
 const insertPosts = (posts, postsContainer, editable, page) => {
-    if(editable) {
         if(posts.length === 0) {
             postsContainer.append(`<h2>No ${page ? "More" : ""} Posts To show</h2>`);
             localStorage.setItem('RemPosts', false);
@@ -96,9 +96,6 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                 }
             }
         }
-    } else {
-        postsContainer.append(`<h2>No Posts To show</h2>`);
-    }
 };
 
 const debounce = (func, delay) => {

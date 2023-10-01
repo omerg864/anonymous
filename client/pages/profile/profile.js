@@ -162,6 +162,7 @@ const insertUserData = (userData, editable) => {
     const address = $('#address');
     const dob = $('#dob');
     const message = $('#message');
+    const newPostContainer = $('#new-post-btn-container');
     f_name.html(userData.f_name + "&nbsp;");
     l_name.html(userData.l_name);
     email.html(userData.email);
@@ -195,6 +196,7 @@ const insertUserData = (userData, editable) => {
                 }});
             });
         }
+        newPostContainer.addClass('d-none');
     } else {
         message.parent().addClass('d-none');
     }
