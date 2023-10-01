@@ -1,12 +1,33 @@
 
 
+:root {
+    /* ===== Colors ===== */
+    --body-color: #18191a;
+    --sidebar-color: #242526;
+    --primary-color: #4e86bd;
+    --text-color: #ccc;
+
+    /* ====== Transition ====== */
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.3s ease;
+
+}
+
+
 body,html {
     min-height: 100vh;
 }
 .body {
     color: white;
     position: relative;
+    display: flex;
+}
+
+.content {
+    position: relative;
     padding-bottom: 50px;
+    flex: 1;
 }
 
 main {
@@ -14,15 +35,14 @@ main {
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 .background1 {
-    background-color: #000 !important;
+    background-color: #18191a !important;
 }
 
 .background2 {
-    background-color: rgb(25, 28, 36);
+    background-color: #242526;
 }
 
 .whiteColor {
@@ -35,11 +55,6 @@ main {
 .redColor {
     color: red;
     height: 1rem;
-}
-
-header {
-    background-color: rgb(25, 28, 36);
-    width: 100%;
 }
 
 footer {
@@ -108,6 +123,198 @@ footer {
 
 .new-btn {
     min-width: fit-content;
+}
+
+
+.sidebar * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    width: 250px;
+    padding: 10px 14px;
+    margin: 0;
+    background: var(--sidebar-color);
+    transition: var(--tran-05);
+    z-index: 100;
+}
+.sidebar.close {
+    width: 95px;
+}
+
+/* ===== Reusable code - Here ===== */
+.sidebar li {
+    height: 50px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.sidebar header .image,
+.sidebar .icon {
+    min-width: 60px;
+    border-radius: 6px;
+}
+
+.sidebar .icon {
+    min-width: 60px;
+    border-radius: 6px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+.sidebar .text,
+.sidebar .icon {
+    color: var(--text-color);
+    transition: var(--tran-03);
+}
+
+.sidebar .text {
+    font-size: 17px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 1;
+}
+.sidebar.close .text {
+    opacity: 0;
+}
+/* =========================== */
+
+.sidebar header {
+    position: relative;
+    cursor: pointer;
+}
+
+.sidebar header .image-text {
+    display: flex;
+    align-items: center;
+}
+.sidebar header .logo-text {
+    display: flex;
+    flex-direction: column;
+}
+.sidebar header .image-text .name {
+    margin-top: 2px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.sidebar header .image-text .profession {
+    font-size: 14px;
+    margin-top: -2px;
+    display: block;
+}
+
+.sidebar header .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar header .image img {
+    width: 40px;
+    border-radius: 6px;
+}
+
+.sidebar header .toggle {
+    position: absolute;
+    top: 50%;
+    right: -25px;
+    transform: translateY(-50%) rotate(180deg);
+    height: 25px;
+    width: 25px;
+    background-color: var(--primary-color);
+    color: var(--sidebar-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: var(--tran-05);
+}
+
+body.dark .sidebar header .toggle {
+    color: var(--text-color);
+}
+
+.sidebar.close .toggle {
+    transform: translateY(-50%) rotate(0deg);
+}
+
+.sidebar .menu {
+    margin-top: 40px;
+}
+
+.sidebar li a {
+    list-style: none;
+    height: 100%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: var(--tran-03);
+}
+
+
+/*Hover for links in sidebar*/
+.sidebar li a:hover {
+    background-color: var(--primary-color);
+}
+
+
+/* Hover for icons and text */
+.sidebar li a:hover .icon,
+.sidebar li a:hover .text {
+    color: var(--sidebar-color);
+}
+
+
+.sidebar .menu-bar {
+    height: calc(100% - 55px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: scroll;
+}
+.menu-bar::-webkit-scrollbar {
+    display: none;
+}
+.menu-bar .sidebar {
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    position: relative;
+    transition: var(--tran-05);
+}
+
+.bottom-content .menu-bar{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.sidebar.close ~ .main {
+    left: 78px;
+    height: 100vh;
+    width: calc(100% - 78px);
 }
 
 @media only screen and (max-width: 500px)  {

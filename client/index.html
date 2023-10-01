@@ -3,31 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link href="./main.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap'>
     <title>Document</title>
 </head>
 <body class="background1 body">
-    <header>
-        header
-    </header>
-    <sidebar>
-        sidebar
-    </sidebar>
-    <main id="main">
-    </main>
-    <div id="spinner" class="full background2 p-3 m-3 box w-100 d-none">
-        <div class="d-flex justify-content-center">
-            <div class="spinner-grow" style="width: 5rem; height: 5rem;" role="status">
-                <span class="visually-hidden">Loading...</span>
+    <nav class="sidebar close">
+        <header>
+            <div class="image-text">
+          <span class="image">
+            <img src="SidebarPhotos/Shlosi2.jpg" alt="">
+          </span>
+    
+                <div class="text logo-text">
+                    <span><a class="name" href="#profile">Shlosi Flossi</a></span>
+                    <span class="profession">Anonymous User</span>
+                </div>
+            </div>
+    
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+    
+        <div class="menu-bar">
+            <div class="menu">
+    
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#home">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Feed</span>
+                        </a>
+                    </li>
+    
+                    <li class="nav-link">
+                        <a href="#groups">
+                            <i class='bx bx-bar-chart-alt-2 icon'></i>
+                            <span class="text nav-text">Groups</span>
+                        </a>
+                    </li>
+    
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Notifications</span>
+                        </a>
+                    </li>
+    
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-like icon'></i>
+                            <span class="text nav-text">Likes</span>
+                        </a>
+                    </li>
+    
+                    <li class="nav-link">
+                        <a href="#myPosts">
+                            <i class='bx bx-heart icon'></i>
+                            <span class="text nav-text">Saved</span>
+                        </a>
+                    </li>
+    
+                    <li class="nav-link">
+                        <a href="#chats">
+                            <i class='bx bx-message-alt icon'></i>
+                            <span class="text nav-text">Messenger</span>
+                        </a>
+                    </li>
+    
+                </ul>
+            </div>
+    
+            <div class="bottom-content">
+                <li class="nav-link">
+                    <a href="#">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+    
             </div>
         </div>
-    </div>
-    <footer>
-        footer
-    </footer>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
+    </nav>
+    <section class="content">
+        <sidebar>
+            sidebar
+        </sidebar>
+        <main id="main">
+        </main>
+        <div id="spinner" class="full background2 p-3 m-3 box w-100 d-none">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-grow" style="width: 5rem; height: 5rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <footer>
+            footer
+        </footer>
+    </section>
+    <script type="text/javascript" href="./bootstrap/js/bootstrap.min.js"></script>
     <script type="module" src="./index.js"></script>
 </body>
 </html>
