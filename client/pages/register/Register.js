@@ -1,6 +1,6 @@
 
 import { emailRegex, passwordRegex } from "../../utils/regex.js";
-import { dateToString } from "../../utils/globalfunctions.js";
+import { dateToString, debounce } from "../../utils/globalfunctions.js";
 import { CLIENT_URL } from "../../utils/consts.js";
 
 var map, searchManager, location;
@@ -24,10 +24,11 @@ const suggestionSelected = (result) => {
     var pin = new Microsoft.Maps.Pushpin(result.location);
     map.entities.push(pin);
     location = result.location;
-    console.log(location);
 
     map.setView({ bounds: result.bestView });
     $("#address").val(result.formattedSuggestion);
+    validateClass($("#address"), true);
+    $('#address-error').html("&nbsp;");
 }
 
 const geocode = () => {
@@ -79,6 +80,15 @@ const geocode = () => {
     //Make the geocode request.
     searchManager.geocode(searchRequest);
 }
+    const validateClass = (element, isValid) =>{
+        if(isValid) {
+            element.hasClass("is-invalid") ? element.removeClass("is-invalid") : null;
+            element.hasClass("is-valid") ? null : element.addClass("is-valid");
+        } else {
+            element.hasClass("is-valid") ? element.removeClass("is-valid") : null;
+            element.hasClass("is-invalid") ? null : element.addClass("is-invalid");
+        }
+    }
     const registerPage = () => {
         let form = document.querySelector("#register-form");
         var f_name = $("#f_name");
@@ -109,38 +119,38 @@ const geocode = () => {
         });
 
         // password changed input event jquery
-        password.on("input", () => {
+        password.on("keyup", debounce((e) => {
             checkPassword();
             if(confirmPassword.val() !== "")
                 checkConfirmPassword();
-        });
+        }, 700));
 
         // confirm password changed input event jquery
-        confirmPassword.on("input", (e) => {
+        confirmPassword.on("keyup", debounce((e) => {
             checkConfirmPassword();
-        });
+        }, 700));
 
         // email changed input event jquery
-        email.on("input", (e) => {
+        email.on("keyup", debounce((e) => {
             checkEmail();
-        });
+        },700));
 
         // first name changed input event jquery
-        f_name.on("input", (e) => {
+        f_name.on("keyup", debounce((e) => {
             checkEmpty(f_name, f_nameError);
-        });
+        }, 700));
 
         // last name changed input event jquery
-        l_name.on("input", (e) => {
+        l_name.on("keyup", debounce((e) => {
             checkEmpty(l_name, l_nameError);
-        });
+        }, 700));
 
         // address changed input event jquery
-        address.on("input", (e) => {
-            checkEmpty(address, addressError);
+        address.on("keyup", debounce((e) => {
             location = null;
             geocode();
-        });
+            checkEmpty(address, addressError);
+        }, 700));
         const register = () => {
             let data = {
                 email: email.val(),
@@ -157,15 +167,6 @@ const geocode = () => {
             }, data: JSON.stringify(data), type: "POST", contentType: "application/json", error: function(err){
                 console.log(err);
             }});
-        }
-        const validateClass = (element, isValid) =>{
-            if(isValid) {
-                element.hasClass("is-invalid") ? element.removeClass("is-invalid") : null;
-                element.hasClass("is-valid") ? null : element.addClass("is-valid");
-            } else {
-                element.hasClass("is-valid") ? element.removeClass("is-valid") : null;
-                element.hasClass("is-invalid") ? null : element.addClass("is-invalid");
-            }
         }
     
         const checkPassword = () => {
@@ -214,9 +215,9 @@ const geocode = () => {
         }
     
         const checkEmpty = (element, elementError) => {
-            if(element.val() === ""){
+            if(element.val() === "" || !location){
                 validateClass(element, false);
-                elementError.html("This field is required");
+                elementError.html("Please select a location from the dropdown");
                 return true;
             } else {
                 validateClass(element, true);

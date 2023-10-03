@@ -98,14 +98,12 @@ const insertPosts = (posts, postsContainer, editable, page) => {
         }
 };
 
-const debounce = (func, delay) => {
-    let debounceTimer;
-    return function() {
-        clearTimeout(debounceTimer);
-        timer = setTimeout(() => {
-            func.call(this);
-        }, delay);
-    }
-}
+const debounce = (func, timeout = 300) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
 
 export {dateToString, timeToString, insertPosts, debounce};
