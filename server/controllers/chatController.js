@@ -46,6 +46,9 @@ const getChats = asyncHandler(async (req, res, next) => {
         }
         return chat;
     }));
+    chats = chats.filter(chat => {
+        return chat.lastMessage;
+    });
     res.status(200).json({
         success: true,
         userId: req.user._id,

@@ -153,7 +153,7 @@ const geocode = () => {
                 location: location
             };
             $.ajax({url: `${CLIENT_URL}/api/user/register`, success: function(result){
-                window.location.href = `#login`;
+                window.location.href = `?#login`;
             }, data: JSON.stringify(data), type: "POST", contentType: "application/json", error: function(err){
                 console.log(err);
             }});

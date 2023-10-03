@@ -176,6 +176,7 @@ const insertUserData = (userData, editable) => {
         const editBtn = $('#edit');
         editBtn.addClass('d-none');
         if(id) {
+            const token = localStorage.getItem('token');
             message.on("click", async ()=> {
                 isLoading = true;
                 spinner.removeClass('d-none');

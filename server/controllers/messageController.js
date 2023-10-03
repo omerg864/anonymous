@@ -16,7 +16,7 @@ const newMessage = asyncHandler(async (req, res, next) => {
         res.status(400);
         throw new Error('text and chatID are required');
     }
-    const chat = await Chat.findById(chatId).populate('users').populate('users.blocked');
+    const chat = await Chat.findById(chatId).populate('users');
     if(!chat){
         res.status(404);
         throw new Error('Chat not found');
@@ -25,9 +25,20 @@ const newMessage = asyncHandler(async (req, res, next) => {
         for(let i = 0; i < chat.users.length; i++){
             if(chat.users[i].blocked.includes(sender)){
                 res.status(401);
-                throw new Error('You are blocked by this user');
+                throw new Error('You are blocked by user');
             }
         }
+    }
+    let found = false;
+    for(let i = 0; i < chat.users.length; i++){
+        if(chat.users[i]._id.equals(sender)){
+            found = true;
+            break;
+        }
+    }
+    if(!found){
+        res.status(401);
+        throw new Error('Not authorized');
     }
     const newMessage = await Message.create({
         sender,

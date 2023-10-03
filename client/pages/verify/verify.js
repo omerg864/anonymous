@@ -18,7 +18,7 @@ const verifyUser = async () => {
             main.removeClass('d-none');
             isLoading = false;
             setTimeout(() => {
-                window.location.href = `#login`;
+                window.location.href = `?#login`;
             }, 5000);
         }, type: "GET", contentType: "application/json", error: function(err){
             verify.html(err.message);
