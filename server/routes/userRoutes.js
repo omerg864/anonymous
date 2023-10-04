@@ -10,10 +10,10 @@ router.route('/profile').get(verifyUser, getProfile);
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
 
-router.route('/hashtags').get(protectUser, getHashtags);
+router.route('/hashtags').put(protectUser, getHashtags);
 router.route('/save/hashtag/:name').get(protectUser, toggleSavedHashtag);
 
-router.route('/save/post/:id').get(protectUser, toggleSavedPost);
+router.route('/save/post/:id').put(protectUser, toggleSavedPost);
 
 router.route('/verify/:id').get(verifyUserEmail);
 
