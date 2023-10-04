@@ -200,7 +200,11 @@ const getGroups = asyncHandler(async (req, res, next) => {
         }
     });
     groups = groups.map((group) => {
-        delete group.owner;
+        if(req.user._id.toString() == group.owner) {
+            group.owner = true;
+        } else {
+            group.owner = false;
+        }
         return group;
     });
     res.status(200).json({
