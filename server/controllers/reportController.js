@@ -10,5 +10,45 @@ const getReports = asyncHandler(async (req, res, next) => {
     });
 });
 
+const createReport = asyncHandler(async (req, res, next) => {
+    const {description, userId, postId, commentId} = req.body;
+    if(!description || countChar(description) > 500) {
+        res.status(400);
+        throw new Error('Invalid description');
+    }
+    let report;
+    if(!userId && !postId && !commentId) {
+        report = await Report.create({
+            by: req.user._id,
+            description
+        });
+    }
+    if(userId) {
+        report = await Report.create({
+            by: req.user._id,
+            description,
+            userId
+        })
+    }
+    else if(postId) {
+        report = await Report.create({
+            by: req.user._id,
+            description,
+            postId
+        });
+    }
+    else if(commentId) {
+        report = await Report.create({
+            by: req.user._id,
+            description,
+            commentId
+        });
+    }
+    res.status(200).json({
+        success: true,
+        report
+    });
+});
 
-export {getReports};
+
+export {getReports, createReport};

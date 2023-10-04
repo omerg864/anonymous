@@ -83,6 +83,15 @@
     font-family: 'Garamond', 'Arial Narrow', Arial, sans-serif;
 }
 
+.post-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
 .post-container {
     width: 100%;
     height: fit-content;

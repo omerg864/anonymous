@@ -1,9 +1,11 @@
 import express from 'express';
-import {getReports} from '../controllers/reportController.js';
+import {getReports, createReport} from '../controllers/reportController.js';
+import { protectAdmin, protectUser } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/', getReports);
+router.route('/').get(protectAdmin, getReports);
+router.route('/').post(protectUser, createReport);
 
 
 export default router;

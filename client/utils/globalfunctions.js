@@ -45,9 +45,12 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                                             <div class="col" style="flex: 0;">
                                                 <img src="/src/question_mark_icon.png" alt="profile pic" class="post-icon">
                                             </div>
-                                            <div class="post-info">
-                                                <small>Anonymous (${posts[i].user.f_name} ${posts[i].user.l_name})</small>
-                                                <small>${dateToString(new Date(posts[i].updatedAt))} ${timeToString(new Date(posts[i].updatedAt))}</small>
+                                            <div class="post-header">
+                                                <div class="post-info">
+                                                    <small>Anonymous (${posts[i].user.f_name} ${posts[i].user.l_name})</small>
+                                                    <small>${dateToString(new Date(posts[i].updatedAt))} ${timeToString(new Date(posts[i].updatedAt))}</small>
+                                                </div>
+                                                <button class="btn btn-primary" id="settings-${posts[i]._id}">report</button>
                                             </div>
                                         </div>
                                         ${content}
@@ -78,8 +81,10 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                                         </div>
                                     </article>`
                 postsContainer.append(postArticle);
+                //TODO: add like, comment and settings functionality
                 const likeBtn = $(`#like-${posts[i]._id}`);
                 const commentBtn = $(`#comment-${posts[i]._id}`);
+                const settingsBtn = $(`#settings-${posts[i]._id}`);
                 if(isCanvas) {
                     const canvas = document.getElementById(`canvas-${i}`);
                     if(canvas) {
