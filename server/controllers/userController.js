@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import Post from '../models/postModel.js';
+import Hashtag from '../models/hashtagModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
@@ -11,6 +12,59 @@ const generateToken = (id) => {
         expiresIn: '30d'
     });
 }
+
+const getHashtags = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user._id).populate('saveHashtags');
+    let hashtags = user.saveHashtags;
+    if(!hashtags) {
+        hashtags = [];
+    }
+    hashtags = hashtags.map((hashtag) => {
+        return {
+            ...hashtag._doc,
+            saved: true
+        }
+    });
+    hashtags = hashtags.map((hashtag) => {
+        hashtags.posts = hashtag.posts.length;
+    });
+    res.status(200).json({
+        success: true,
+        hashtags: hashtags
+    });
+});
+
+const toggleSavedHashtag = asyncHandler(async (req, res, next) => {
+    const name = req.params.name;
+    if(!name) {
+        res.status(400);
+        throw new Error('Hashtag not found');
+    }
+    let hashtag = await Hashtag.findOne({name: name});
+    if(!hashtag) {
+        hashtag = await Hashtag.create({
+            name: name,
+            posts: [],
+            likes: 0,
+            followers: 0
+        });
+    }
+    if(hashtag._id.toString() in req.user.savedHashtags) {
+        // remove hashtag from user
+        req.user.savedHashtags = req.user.savedHashtags.filter((id) => id != hashtag._id.toString());
+        hashtag.followers -= 1;
+    } else {
+        req.user.savedHashtags.push(hashtag._id.toString());
+        hashtag.followers += 1;
+    }
+    await req.user.save();
+    await hashtag.save();
+    res.status(200).json({
+        success: true,
+        message: 'Hashtag save change successfully'
+    });
+});
+
 
 const registerUser = asyncHandler(async (req, res, next) => {
     const {f_name, l_name, email, password, gender, address, dob, location } = req.body;
@@ -179,4 +233,4 @@ const verifyUserEmail = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost};
+export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag};
