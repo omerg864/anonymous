@@ -89,9 +89,16 @@
     
     </nav>
     <section class="content">
-        <sidebar>
-            sidebar
-        </sidebar>
+        <div class="header px-4 mb-3">
+            <div class="search-container my-3 me-2 w-25">
+                <input id="search-chats" type="text" class="search-input background2" placeholder="Search">
+                <svg class="search-icon" fill="white" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+            </div>
+            <div class="header-logo">
+              <p class="Anonymous-text">Anonymous</p>
+              <img src="../../src/Anonymous_logo.png" alt="Anonymous" class="AnonymousIMG">
+            </div>
+          </div>
         <div id="spinner" class="full background2 p-3 m-3 box w-100 d-none">
             <div class="d-flex justify-content-center">
                 <div class="spinner-grow" style="width: 5rem; height: 5rem;" role="status">
@@ -102,7 +109,16 @@
         <main id="main">
         </main>
         <footer>
-            footer
+            <div class="linkSectionLeft">
+                <a href="#">About</a>
+                <a href="#">Help Center</a>
+                <a href="#">Term of Service</a>
+            </div>
+            <div class="linkSectionRight">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cooksie Policy</a>
+                <a href="#">Setting</a>
+            </div>
         </footer>
     </section>
     <script type="text/javascript" href="./bootstrap/js/bootstrap.min.js"></script>
