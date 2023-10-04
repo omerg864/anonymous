@@ -12,7 +12,7 @@ const getReports = asyncHandler(async (req, res, next) => {
 
 const createReport = asyncHandler(async (req, res, next) => {
     const {description, userId, postId, commentId} = req.body;
-    if(!description || countChar(description) > 500) {
+    if(!description) {
         res.status(400);
         throw new Error('Invalid description');
     }

@@ -70,6 +70,10 @@ const userScheme = mongoose.Schema({
         type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Post' }],
         required: false
     },
+    saveHashtags: {
+        type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Hashtag' }],
+        required: false
+    },
     groups: {
         type: [{ type : mongoose.Schema.Types.ObjectId, ref: 'Group' }],
         required: false
