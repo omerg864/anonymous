@@ -96,6 +96,10 @@ const getProfile = asyncHandler(async (req, res, next) => {
         id = req.user._id;
         self = true;
     }
+    if(!id) {
+        res.status(400);
+        throw new Error('User not found');
+    }
     let user;
     try {
         user = await User.findById(id).populate('savedPosts').populate('groups').populate('blocked').populate('approved');

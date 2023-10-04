@@ -7,10 +7,6 @@ import { CHAT_LIMIT } from '../utils/consts.js';
 
 //TODO: add approved data to check approved
 const getChats = asyncHandler(async (req, res, next) => {
-    if(!req.user) {
-        res.status(401);
-        throw new Error('Not authorized');
-    }
     let page = parseInt(req.query.page);
     if(!page) {
         page = 0;
@@ -58,10 +54,6 @@ const getChats = asyncHandler(async (req, res, next) => {
 
 // for private chat
 const searchChat = asyncHandler(async (req, res, next) => {
-    if(!req.user){
-        res.status(401);
-        throw new Error('Not authorized');
-    }
     const {id} = req.params;
     const otherUser = await User.findById(id);
     if(!otherUser){

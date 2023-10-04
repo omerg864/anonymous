@@ -6,10 +6,6 @@ import Chat from '../models/chatModel.js';
 
 // TODO: test with blocked users data
 const newMessage = asyncHandler(async (req, res, next) => {
-    if(!req.user){
-        res.status(401);
-        throw new Error('Not authorized');
-    }
     const {text, chatId} = req.body;
     const sender = req.user._id;
     if(!text || !chatId){

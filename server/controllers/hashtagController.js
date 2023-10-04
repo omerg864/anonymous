@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Hashtag from '../models/HashtagModel.js';
+import Hashtag from '../models/hashtagModel.js';
 
 const getHashtags = asyncHandler(async (req, res, next) => {
     const Hashtags = await Hashtag.find();

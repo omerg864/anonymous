@@ -2,15 +2,12 @@ import asyncHandler from 'express-async-handler';
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
 import Comment from '../models/commentModel.js';
+import Hashtag from '../models/hashtagModel.js';
 import { POST_LIMIT } from '../utils/consts.js';
 
 const getUserPosts = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
     let self = false;
-    if(!req.user){
-        res.status(400)
-        throw new Error('Not Authorized');
-    }
     if(!id || id == req.user._id) {
         id = req.user._id;
         self = true;

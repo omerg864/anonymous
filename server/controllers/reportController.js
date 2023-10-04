@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Report from '../models/ReportModel.js';
+import Report from '../models/reportModel.js';
 
 
 const getReports = asyncHandler(async (req, res, next) => {
