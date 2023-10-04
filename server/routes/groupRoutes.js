@@ -1,9 +1,10 @@
 import express from 'express';
-import {getGroups} from '../controllers/groupController.js';
+import {createGroup} from '../controllers/groupController.js';
+import { protectUser } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/', getGroups);
+router.route('/').post(protectUser, createGroup);
 
 
 export default router;

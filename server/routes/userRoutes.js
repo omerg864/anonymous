@@ -1,5 +1,7 @@
 import express from 'express';
-import {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts} from '../controllers/userController.js';
+import {getProfile, registerUser, loginUser, verifyUserEmail, 
+    toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts
+    , getGroups, toggleJoinedGroup} from '../controllers/userController.js';
 import {protectUser, verifyUser} from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -15,6 +17,9 @@ router.route('/save/hashtag/:name').put(protectUser, toggleSavedHashtag);
 
 router.route('/posts').get(protectUser, getSavedPosts);
 router.route('/save/post/:id').put(protectUser, toggleSavedPost);
+
+router.route('/groups').get(protectUser, getGroups);
+router.route('/join/group/:id').put(protectUser, toggleJoinedGroup);
 
 router.route('/verify/:id').get(verifyUserEmail);
 

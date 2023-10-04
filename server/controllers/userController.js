@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
 import { sendMail } from '../utils/globalFunctions.js';
 import { addPostData } from '../utils/globalFunctions.js';
+import Group from '../models/groupModel.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -186,6 +187,55 @@ const toggleSavedPost = asyncHandler(async (req, res, next) => {
     }
 });
 
+const getGroups = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user._id).populate('groups');
+    let groups = user.groups;
+    if(!groups) {
+        groups = [];
+    }
+    groups = groups.map((group) => {
+        return {
+            ...group._doc,
+            saved: true
+        }
+    });
+    groups = groups.map((group) => {
+        delete group.owner;
+        return group;
+    });
+    res.status(200).json({
+        success: true,
+        groups: groups
+    });
+});
+
+const toggleJoinedGroup = asyncHandler(async (req, res, next) => {
+    const groupId = req.params.id;
+    const user = await User.findById(req.user._id);
+    if(!groupId) {
+        res.status(400);
+        throw new Error('Group not found');
+    }
+    const group = Group.findById(groupId);
+    if(!group) {
+        res.status(400);
+        throw new Error('Group not found');
+    }
+    if(groupId in user.groups) {
+        user.groups = user.groups.filter((id) => id != groupId);
+        group.members -= 1;
+    } else {
+        user.groups.push(groupId);
+        group.members += 1;
+    }
+    await user.save();
+    await group.save();
+    res.status(200).json({
+        success: true,
+        message: 'Group join change successfully'
+    });
+});
+
 
 const getProfile = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
@@ -246,4 +296,4 @@ const verifyUserEmail = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts};
+export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts, getGroups, toggleJoinedGroup};
