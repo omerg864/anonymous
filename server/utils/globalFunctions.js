@@ -43,7 +43,6 @@ const addPostData = async (posts, userId=undefined, savedPosts=undefined) => {
         post = post._doc;
         let postUser = await User.findById(post.user).select('-password -__v -admin -updatedAt');
         if(userId && (userId.toString() in postUser.approved || userId.toString() === postUser._id.toString())) {
-            console.log("approved");
             post["approved"] = true;
             post["f_name"] = postUser["f_name"];
             post["l_name"] = postUser["l_name"];

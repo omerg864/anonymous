@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
 import { sendMail } from '../utils/globalFunctions.js';
+import { addPostData } from '../utils/globalFunctions.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -62,6 +63,19 @@ const toggleSavedHashtag = asyncHandler(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: 'Hashtag save change successfully'
+    });
+});
+
+const getSavedPosts = asyncHandler(async (req, res, next) => {
+    let posts = [];
+    for(let i = 0; i < req.user.savedPosts.length; i++) {
+        const post = await Post.findById(req.user.savedPosts[i]);
+        posts.push(post);
+    }
+    posts = await addPostData(posts, req.user._id, req.user.savedPosts);
+    res.status(200).json({
+        success: true,
+        posts: posts
     });
 });
 
@@ -192,7 +206,6 @@ const getProfile = asyncHandler(async (req, res, next) => {
         throw new Error('User not found');
     }
     if (!user) {
-        console.log("User not found");
         res.status(400);
         throw new Error('User not found');
     }
@@ -233,4 +246,4 @@ const verifyUserEmail = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag};
+export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts};
