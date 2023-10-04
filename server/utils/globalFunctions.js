@@ -1,5 +1,6 @@
 import * as nodemailer from 'nodemailer';
 import Comment from '../models/commentModel.js';
+import User from '../models/userModel.js';
 
 const sendMail = (receiver, subject, text) => {
     let mailTransporter = nodemailer.createTransport({
@@ -36,9 +37,19 @@ const countChar = (str, char) => {
 }
 
 const addPostData = async (posts, userId=undefined, savedPosts=undefined) => {
+    let tempPosts = [];
     for(let i = 0; i < posts.length; i++) {
         let post = posts[i];
         post = post._doc;
+        let postUser = await User.findById(post.user).select('-password -__v -admin -updatedAt');
+        if(userId && (userId.toString() in postUser.approved || userId.toString() === postUser._id.toString())) {
+            console.log("approved");
+            post["approved"] = true;
+            post["f_name"] = postUser["f_name"];
+            post["l_name"] = postUser["l_name"];
+        } else {
+            post["approved"] = false;
+        }
         if(userId && userId.toString() == post.user.toString()) {
             post["editable"] = true;
         } else {
@@ -59,8 +70,9 @@ const addPostData = async (posts, userId=undefined, savedPosts=undefined) => {
         } else {
             post["saved"] = false;
         }
-        posts[i] = post;
+        tempPosts.push(post);
     }
+    return tempPosts;
 }
 
 export { sendMail, countChar, addPostData };

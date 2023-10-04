@@ -9,15 +9,18 @@ const getHashtag = asyncHandler(async (req, res, next) => {
         res.status(404);
         throw new Error('Hashtag not found');
     }
+    let posts;
     if (req.user) {
-        addPostData(hashtag.posts, req.user._id, req.user.savedPosts);
+        posts = await addPostData(hashtag.posts, req.user._id, req.user.savedPosts);
     } else {
-        addPostData(hashtag.posts);
+        posts = await addPostData(hashtag.posts);
     }
     delete hashtag["__v"];
+    hashtag.posts = [];
     res.status(200).json({
         success: true,
         hashtag: hashtag,
+        posts: posts
     });
 });
 

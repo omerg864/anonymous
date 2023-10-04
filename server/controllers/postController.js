@@ -5,6 +5,7 @@ import Comment from '../models/commentModel.js';
 import Hashtag from '../models/hashtagModel.js';
 import { POST_LIMIT } from '../utils/consts.js';
 import { countChar } from '../utils/globalFunctions.js';
+import { addPostData } from '../utils/globalFunctions.js';
 
 const getUserPosts = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
@@ -27,11 +28,11 @@ const getUserPosts = asyncHandler(async (req, res, next) => {
     }
         let page = req.query.page;
         posts = await Post.find({user: user._id}).populate('user', ['-password', '-__v', '-admin', '-updatedAt']).limit(POST_LIMIT).skip(POST_LIMIT * page).sort({createdAt: -1});
-        posts = await addPostData(posts, req.user._id, req.user.savedPosts);
+        let postsNew = await addPostData(posts, req.user._id, req.user.savedPosts);
     res.status(200).json({
         success: true,
         editable: self,
-        posts
+        posts: postsNew
     });
 });
 
