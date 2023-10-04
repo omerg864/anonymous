@@ -1,6 +1,6 @@
 
 import { emailRegex, passwordRegex } from "../../utils/regex.js";
-import { dateToString, debounce } from "../../utils/globalfunctions.js";
+import { dateToString, debounce } from "../../utils/globalFunctions.js";
 import { CLIENT_URL } from "../../utils/consts.js";
 
 var map, searchManager, location;

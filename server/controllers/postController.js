@@ -4,6 +4,7 @@ import User from '../models/userModel.js';
 import Comment from '../models/commentModel.js';
 import Hashtag from '../models/hashtagModel.js';
 import { POST_LIMIT } from '../utils/consts.js';
+import { countChar } from '../utils/globalFunctions.js';
 
 const getUserPosts = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
@@ -39,6 +40,11 @@ const getUserPosts = asyncHandler(async (req, res, next) => {
             let comments = await Comment.find({post: post._id}).count();
             post["comments"] = comments;
             delete post["__v"];
+            if(req.user.savedPosts.includes(post._id)) {
+                post["saved"] = true;
+            } else {
+                post["saved"] = false;
+            }
             posts[i] = post;
         }
     }
@@ -48,17 +54,6 @@ const getUserPosts = asyncHandler(async (req, res, next) => {
         posts
     });
 });
-
-const countChar = (str, char) => {
-    let count = 0;
-    for(let i = 0; i < str.length; i++) {
-        if(str[i] === char) {
-            count++;
-        }
-    }
-    return count;
-}
-
 
 // TODO: add safe guards
 const createPost = asyncHandler(async (req, res, next) => {

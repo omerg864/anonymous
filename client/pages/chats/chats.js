@@ -1,6 +1,5 @@
-import { dateToString, timeToString } from "../../utils/globalfunctions.js";
+import { dateToString, timeToString, debounce } from "../../utils/globalFunctions.js";
 import { CLIENT_URL } from "../../utils/consts.js";
-import { debounce } from "../../utils/globalfunctions.js";
 
 
 // Const

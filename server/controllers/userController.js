@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import Post from '../models/postModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { emailRegex, passwordRegex } from '../utils/regex.js';
@@ -88,6 +89,35 @@ const loginUser = asyncHandler(async (req, res, next) => {
     });
 });
 
+const toggleSavedPost = asyncHandler(async (req, res, next) => {
+    const postId = req.params.id;
+    const user = await User.findById(req.user._id);
+    if(!postId) {
+        res.status(400);
+        throw new Error('Post not found');
+    }
+    const post = Post.findById(postId);
+    if(!post) {
+        res.status(400);
+        throw new Error('Post not found');
+    }
+    if(user.savedPosts.includes(postId)) {
+        user.savedPosts = user.savedPosts.filter((id) => id != postId);
+        await user.save();
+        res.status(200).json({
+            success: true,
+            message: 'Post unsaved successfully'
+        });
+    } else {
+        user.savedPosts.push(postId);
+        await user.save();
+        res.status(200).json({
+            success: true,
+            message: 'Post saved successfully'
+        });
+    }
+});
+
 
 const getProfile = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
@@ -149,4 +179,4 @@ const verifyUserEmail = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getProfile, registerUser, loginUser, verifyUserEmail};
+export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost};

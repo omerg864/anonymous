@@ -1,4 +1,4 @@
-import { dateToString, insertPosts } from "../../utils/globalfunctions.js";
+import { dateToString, insertPosts } from "../../utils/globalFunctions.js";
 import { CLIENT_URL } from "../../utils/consts.js";
 
 
