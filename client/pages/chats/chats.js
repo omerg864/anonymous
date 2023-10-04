@@ -1,5 +1,6 @@
 import { dateToString, timeToString } from "../../utils/globalfunctions.js";
 import { CLIENT_URL } from "../../utils/consts.js";
+import { debounce } from "../../utils/globalfunctions.js";
 
 
 // Const
@@ -24,9 +25,15 @@ const fetchChatsData = async () => {
     localStorage.setItem('RemChats', true);
     localStorage.setItem('page', 0);
     await getMoreChats(true);
-    main.removeClass('d-none');
-    spinner.addClass('d-none');
     isLoading = false;
+    $('#search-chats').on('keyup', debounce(searchChats, 700));
+}
+
+const searchChats = async () => {
+    localStorage.setItem('RemChats', true);
+    localStorage.setItem('page', 0);
+    $('#chats').empty();
+    await getMoreChats(true);
 }
 
 const getMoreChats = async (alone=false) => {
@@ -34,22 +41,31 @@ const getMoreChats = async (alone=false) => {
     const chatsContainer = $('#chats');
     if(alone) {
         isLoading = true;
+        main.addClass('d-none');
         spinner.removeClass('d-none');
     }
     let page = parseInt(localStorage.getItem('page', 0));
-    await $.ajax({url: `${CLIENT_URL}/api/chat/?page=${page}`, headers: {
+    let search = $('#search-chats').val();
+    if(!search) {
+        search = "";
+    } else {
+        search = "&search=" + search;
+    }
+    await $.ajax({url: `${CLIENT_URL}/api/chat/?page=${page}${search}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);
         insertChats(result.chats, result.userId, chatsContainer, page);
         localStorage.setItem('page', page + 1);
         if(alone) {
+            main.removeClass('d-none');
             spinner.addClass('d-none');
             isLoading = false;
         }
     }, type: "GET", contentType: "application/json", error: function(err){
         console.log(err);
         if(alone) {
+            main.removeClass('d-none');
             spinner.addClass('d-none');
             isLoading = false;
         }

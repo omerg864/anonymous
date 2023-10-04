@@ -49,16 +49,53 @@ const getUserPosts = asyncHandler(async (req, res, next) => {
     });
 });
 
+const countChar = (str, char) => {
+    let count = 0;
+    for(let i = 0; i < str.length; i++) {
+        if(str[i] === char) {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+// TODO: add safe guards
 const createPost = asyncHandler(async (req, res, next) => {
-    const {title, content, type, media} = req.body;
+    const {content, type, media} = req.body;
+    if(!content || !type) {
+        res.status(400);
+        throw new Error('Invalid request');
+    }
+    const contentWords = content.split(" ");
+    let hashtags = [];
+    for(let i = 0; i < contentWords.length; i++) {
+        if(contentWords[i].startsWith("#") && contentWords[i].length > 1 && contentWords[i].length < 20 && countChar(contentWords[i], '#') === 1) {
+            hashtags.push(contentWords[i].substring(1));
+        }
+    }
     const post = await Post.create({
-        title,
         content,
         likes: [],
         type,
         media,
         user: req.user._id
     });
+    if(post) {
+        for(let i = 0; i < hashtags.length; i++) {
+            let hashtag = await Hashtag.findOne({name: hashtags[i]});
+            if(!hashtag) {
+                hashtag = await Hashtag.create({
+                    name: hashtags[i],
+                    posts: [],
+                    followers: 0,
+                    likes: 0
+                });
+            }
+            hashtag.posts.push(post._id);
+            await hashtag.save();
+        }
+    }
     res.status(200).json({
         success: true,
         post: post
