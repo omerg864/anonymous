@@ -1,4 +1,5 @@
 import * as nodemailer from 'nodemailer';
+import Comment from '../models/commentModel.js';
 
 const sendMail = (receiver, subject, text) => {
     let mailTransporter = nodemailer.createTransport({
@@ -34,4 +35,32 @@ const countChar = (str, char) => {
     return count;
 }
 
-export { sendMail, countChar };
+const addPostData = async (posts, userId=undefined, savedPosts=undefined) => {
+    for(let i = 0; i < posts.length; i++) {
+        let post = posts[i];
+        post = post._doc;
+        if(userId && userId.toString() == post.user.toString()) {
+            post["editable"] = true;
+        } else {
+            post["editable"] = false;
+        }
+        delete post["user"];
+        if(userId && userId in post.likes) {
+            post["liked"] = true;
+        } else {
+            post["liked"] = false;
+        }
+        post["likes"] = post["likes"].length;
+        let comments = await Comment.find({post: post._id}).count();
+        post["comments"] = comments;
+        delete post["__v"];
+        if(savedPosts && savedPosts.includes(post._id)) {
+            post["saved"] = true;
+        } else {
+            post["saved"] = false;
+        }
+        posts[i] = post;
+    }
+}
+
+export { sendMail, countChar, addPostData };

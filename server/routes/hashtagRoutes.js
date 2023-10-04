@@ -1,9 +1,10 @@
 import express from 'express';
-import {getHashtags} from '../controllers/hashtagController.js';
+import {getHashtag} from '../controllers/hashtagController.js';
+import {verifyUser} from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/', getHashtags);
+router.route('/:name').get(verifyUser, getHashtag);
 
 
 export default router;

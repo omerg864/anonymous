@@ -61,7 +61,7 @@ const getMoreChats = async (alone=false) => {
             isLoading = false;
         }
     }, type: "GET", contentType: "application/json", error: function(err){
-        console.log(err);
+        console.log(err.message);
         if(alone) {
             main.removeClass('d-none');
             spinner.addClass('d-none');

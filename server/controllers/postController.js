@@ -24,30 +24,10 @@ const getUserPosts = asyncHandler(async (req, res, next) => {
             res.status(400)
             throw new Error('Unauthorized');
         }
-    } else {
+    }
         let page = req.query.page;
         posts = await Post.find({user: user._id}).populate('user', ['-password', '-__v', '-admin', '-updatedAt']).limit(POST_LIMIT).skip(POST_LIMIT * page).sort({createdAt: -1});
-        for(let i = 0; i < posts.length; i++) {
-            let post = posts[i];
-            post = post._doc;
-            post["editable"] = true;
-            if(req.user._id in post.likes) {
-                post["liked"] = true;
-            } else {
-                post["liked"] = false;
-            }
-            post["likes"] = post["likes"].length;
-            let comments = await Comment.find({post: post._id}).count();
-            post["comments"] = comments;
-            delete post["__v"];
-            if(req.user.savedPosts.includes(post._id)) {
-                post["saved"] = true;
-            } else {
-                post["saved"] = false;
-            }
-            posts[i] = post;
-        }
-    }
+        posts = await addPostData(posts, req.user._id, req.user.savedPosts);
     res.status(200).json({
         success: true,
         editable: self,
