@@ -1,7 +1,6 @@
 
 import { emailRegex, passwordRegex } from "../../utils/regex.js";
 import { dateToString, debounce } from "../../utils/globalFunctions.js";
-import { CLIENT_URL } from "../../utils/consts.js";
 
 var map, searchManager, location;
 
@@ -162,7 +161,7 @@ const geocode = () => {
                 dob: dateToString(new Date(dob.val()), "en-US"),
                 location: location
             };
-            $.ajax({url: `${CLIENT_URL}/api/user/register`, success: function(result){
+            $.ajax({url: `${window.location.origin}/api/user/register`, success: function(result){
                 window.location.href = `?#login`;
             }, data: JSON.stringify(data), type: "POST", contentType: "application/json", error: function(err){
                 console.log(err);

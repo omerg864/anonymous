@@ -1,5 +1,4 @@
 import { dateToString, timeToString, debounce } from "../../utils/globalFunctions.js";
-import { CLIENT_URL } from "../../utils/consts.js";
 
 
 // Const
@@ -50,7 +49,7 @@ const getMoreChats = async (alone=false) => {
     } else {
         search = "&search=" + search;
     }
-    await $.ajax({url: `${CLIENT_URL}/api/chat/?page=${page}${search}`, headers: {
+    await $.ajax({url: `${window.location.origin}/api/chat/?page=${page}${search}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);

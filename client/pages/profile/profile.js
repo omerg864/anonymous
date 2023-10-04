@@ -1,5 +1,4 @@
 import { dateToString, insertPosts } from "../../utils/globalFunctions.js";
-import { CLIENT_URL } from "../../utils/consts.js";
 
 
 // Const
@@ -60,7 +59,7 @@ const semiProfile = () => {
             isLoading = true;
             spinner.removeClass('d-none');
             main.addClass('d-none');
-            await $.ajax({url: `${CLIENT_URL}/api/chat/${id}`, headers: {
+            await $.ajax({url: `${window.location.origin}/api/chat/${id}`, headers: {
                 authorization: `Bearer ${token}`
             }, success: function(result){
                 console.log(result);
@@ -98,7 +97,7 @@ const getUserData = async () => {
     main.addClass('d-none');
     spinner.removeClass('d-none');
     let data = {func: 'getUserData'};
-    await $.ajax({url: `${CLIENT_URL}/api/user/profile/${id}`, headers: {
+    await $.ajax({url: `${window.location.origin}/api/user/profile/${id}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);
@@ -129,7 +128,7 @@ const getMorePosts = async (alone=false) => {
     if(!id) {
         id = '';
     }
-    await $.ajax({url: `${CLIENT_URL}/api/post/${id}?page=${page}`, headers: {
+    await $.ajax({url: `${window.location.origin}/api/post/${id}?page=${page}`, headers: {
         authorization: `Bearer ${token}`
     }, success: function(result){
         console.log(result);
@@ -181,7 +180,7 @@ const insertUserData = (userData, editable) => {
                 isLoading = true;
                 spinner.removeClass('d-none');
                 main.addClass('d-none');
-                await $.ajax({url: `${CLIENT_URL}/api/chat/${id}`, headers: {
+                await $.ajax({url: `${window.location.origin}/api/chat/${id}`, headers: {
                     authorization: `Bearer ${token}`
                 }, success: function(result){
                     console.log(result);

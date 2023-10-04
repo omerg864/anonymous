@@ -1,4 +1,3 @@
-import { CLIENT_URL } from "../../utils/consts.js"
 
 
 // TODO: check verify user page
@@ -12,7 +11,7 @@ const verifyUser = async () => {
     main.addClass('d-none');
     const verify = $('#verify');
     if(id){
-        await $.ajax({url: `${CLIENT_URL}/api/user/verify/${id}`, success: function(result){
+        await $.ajax({url: `${window.location.origin}/api/user/verify/${id}`, success: function(result){
             verify.html("Email verified successfully. You will be redirected to login page in 5 seconds...");
             spinner.addClass('d-none');
             main.removeClass('d-none');
