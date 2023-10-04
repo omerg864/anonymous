@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/pages/login/login.css">
+</head>
+
+
+<div class="background2 rounded p-3 m-3 box">
+    <h1 style="color: white;">Login</h1>
+    <form class="form" id="Login-form">
+
+        <div class="row w-100 mb-3">
+            <div class="col">
+                <div class="form-floating">
+                    <input type="email" class="form-control background1 input" id="email" placeholder="Email" required>
+                    <label for="email" class="input-label">Email</label>
+                </div>
+                <small id="email-error" class="redColor"></small>
+            </div>
+        </div>
+        <div class="row w-100 mb-3 col-900">
+            <div class="col mb-3-900">
+                <div class="form-floating">
+                    <input type="password" class="form-control background1 input" id="password" placeholder="Password" required>
+                    <label for="password" class="input-label">Password</label>
+                </div>
+                <small id="password-error" class="redColor"></small>
+            </div>
+
+        </div>
+
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="errorToast">
+            <div class="toast-header">
+                <img src="../../src/Anonymous_logo.png" height="20px" width="20px" class="rounded me-2" alt="..."><img>
+                <strong class="me-auto">Bootstrap</strong>
+                <small>try again</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="user-Error">
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+
+    <script type="module" type="text/javascript" src="/pages/login/login.js"></script>
+
+</html>

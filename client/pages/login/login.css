@@ -1,0 +1,46 @@
+
+:root {
+    --body: #000;
+    --article: rgb(25, 28, 36);
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+
+.sub-text {
+    display: flex;
+    justify-content: start;
+}
+
+.form {
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.suggest-bing {
+    width: calc(100% - 1rem);
+    padding: 0 !important;
+    padding-left: 1rem !important;
+    padding-top: 0.5rem !important;
+}
+
+@media only screen and (max-width: 900px)  {
+    .col-900 {
+        flex-direction: column !important;
+    }
+    .mb-3-900 {
+        margin-bottom: 10px !important;
+    }
+    .box {
+        width: 100%;
+    }
+}

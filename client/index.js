@@ -1,6 +1,8 @@
 import { fetchChatsData } from './pages/chats/chats.js';
 import { verifyUser } from './pages/verify/verify.js';
 import { registerPage } from './pages/register/Register.js';
+import {LoginPage} from "./pages/login/login.js";
+
 
 window.addEventListener("popstate", (event) => {
     let hash = window.location.hash;
@@ -58,6 +60,9 @@ const switchPage = (page) => {
                 break;
             case 'register':
                 registerPage();
+                break;
+            case 'login':
+                LoginPage();
                 break;
         }
     });
