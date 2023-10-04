@@ -1,119 +1,37 @@
-/* Set a background color for the body */
 body {
-    background-color: #000;
+    margin: 0;
+    padding: 0;
 }
-/* Style the search input */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.Anonymous-text {
+    text-shadow: 2px 2px 5px #4e86bd;
+    font-style: oblique;
+    font-size: 24px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.header-logo {
+    display: flex;
+}
+
+.AnonymousIMG {
+    width: 50px;
+    height: 50px; 
+}
+
 #searchInput {
     background-color: #000;
     color: #888;
-    width: 10%;
+    width: 200px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    position: absolute;
-    right: 800px;
-    top: 10px;
-}
-#ButtonToSideBar {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 2%;
-    height: 2%;
-    border: none;
-    cursor: pointer;
-    z-index: 999;
-    font-size: 24px;
-    padding: 5px;
-    border-radius: 4px;
-}
-.closebtn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 24px;    
-    color: #337ab7;
-    cursor: pointer;
-}
-/* Style the "Messages" button */
-#messagesButton {
-    color: rgb(108, 114, 147);
-}
-/* Style the "Notifications" button */
-#Notifications {
-    color: rgb(108, 114, 147);
-}
-/* Style the "Profile" button */
-#Profile {
-    color: rgb(108, 114, 147);
-}
-.dropdown .dropdown-toggle {
-    float: right;
-    margin-right: 50px;
-}
-/* Sidebar container */
-.sidebar {
-    height: 100%;
-    width: 0px;
-    position: fixed;
-    top: 0;
-    left: 0 ;        
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-/* Close button for the sidebar */
-.closebtn {
-    top: 10px;
-    left: 10px;
-    font-size: 10px;
-    cursor: pointer;
-}
-/* Sidebar links */
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-.sidebar ul li {
-    padding: 15px;
-}
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    transition: 0.3s;
-}
-.sidebar ul li a:hover {
-    color: #337ab7;
-}
-.MessageIMG {
-    max-width: 35px;
-    height: auto;
-    position: absolute;
-    right: 535px;
-}
-.NotificationIMG{
-    max-width: 35px;
-    height: auto;
-    position: absolute;
-    right: 375px;
-}
-.ProfileIMG{
-    max-width: 35px;
-    height: auto;
-    position: absolute;
-    right: 195px;
-    border-radius: 50%;
-}
-.AnonymousIMG{
-    max-width: 70px;
-    height: auto;
-    position: absolute;
-    right: 955px;
-}
-p {
-    position: absolute;
-    right: 950px;
-    top:70px;
-    color: red;
 }
