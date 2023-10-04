@@ -1,4 +1,3 @@
-import {CLIENT_URL} from "../../utils/consts.js";
 import {emailRegex} from "../../utils/regex.js";
 
 
@@ -35,7 +34,7 @@ const login = () => {
         password: password.val(),
     };
     $.ajax({
-        url: `${CLIENT_URL}/api/user/login`, success: function (result) {
+        url: `${window.location.origin}/api/user/login`, success: function (result) {
             console.log(result);
             localStorage.setItem("user",JSON.stringify(result.user))
             localStorage.setItem("token",result.user.token)
