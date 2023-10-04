@@ -15,16 +15,16 @@
         <header>
             <div class="image-text">
           <span class="image">
-            <img src="SidebarPhotos/Shlosi2.jpg" alt="">
+            <img src="./src/question_mark_icon.png" alt="">
           </span>
     
                 <div class="text logo-text">
-                    <span><a class="name" href="#profile">Shlosi Flossi</a></span>
+                    <span class="name">Shlosi Flossi</span>
                     <span class="profession">Anonymous User</span>
                 </div>
             </div>
     
-            <i class='bx bx-chevron-right toggle'></i>
+            <i class='bx bx-chevron-right toggle' id="toggle-btn-nav"></i>
         </header>
     
         <div class="menu-bar">
@@ -89,10 +89,15 @@
     
     </nav>
     <section class="content">
-        <div class="header px-4 mb-3">
-            <div class="search-container my-3 me-2 w-25">
-                <input id="search-chats" type="text" class="search-input background2" placeholder="Search">
-                <svg class="search-icon" fill="white" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+        <div class="header mb-3">
+            <div class="right-side my-3 me-2">
+                <div class="toggle-header-container">
+                    <i class='bx bx-menu toggle-header'></i>
+                </div>
+                <div class="search-container">
+                    <input id="search-chats" type="text" class="search-input background2" placeholder="Search">
+                    <svg class="search-icon" fill="white" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+                </div>
             </div>
             <div class="header-logo">
               <p class="Anonymous-text">Anonymous</p>

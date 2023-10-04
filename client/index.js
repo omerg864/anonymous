@@ -37,6 +37,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     sidebar = body.querySelector("nav"),
     toggle = body.querySelector(".toggle");
 
+    const toggleHeader = $(".toggle-header");
+    const nav = $("nav");
+
+    toggleHeader.click(() => {
+        nav.toggleClass("close");
+    });
+
 
     toggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
