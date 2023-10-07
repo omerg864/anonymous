@@ -39,7 +39,6 @@ const getMoreChats = async (alone=false) => {
     const chatsContainer = $('#chats');
     if(alone) {
         isLoading = true;
-        main.addClass('d-none');
         spinner.removeClass('d-none');
     }
     let page = parseInt(localStorage.getItem('page', 0));
@@ -56,14 +55,12 @@ const getMoreChats = async (alone=false) => {
         insertChats(result.chats, result.userId, chatsContainer, page);
         localStorage.setItem('page', page + 1);
         if(alone) {
-            main.removeClass('d-none');
             spinner.addClass('d-none');
             isLoading = false;
         }
     }, type: "GET", contentType: "application/json", error: function(err){
         console.log(err.message);
         if(alone) {
-            main.removeClass('d-none');
             spinner.addClass('d-none');
             isLoading = false;
         }
