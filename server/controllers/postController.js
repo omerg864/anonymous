@@ -37,7 +37,28 @@ const getUserPosts = asyncHandler(async (req, res, next) => {
     });
 });
 
-// TODO: add safe guards
+const deletePost = asyncHandler(async (req, res, next) => {
+    const post = await Post.findById(req.params.id);
+    if(!post) {
+        res.status(400);
+        throw new Error('Post not found');
+    }
+    if(post.user != req.user._id && !req.user.admin) {
+        res.status(400);
+        throw new Error('Unauthorized');
+    }
+    await Comment.deleteMany({post: post._id});
+    if(post.tweetId) {
+        const twitter = twitterClient();
+        await twitter.v2.deleteTweet(post.tweetId);
+    }
+    await post.remove();
+    res.status(200).json({
+        success: true
+    });
+});
+
+
 const createPost = asyncHandler(async (req, res, next) => {
     const {content, type, media} = req.body;
     if(!content || !type) {
@@ -90,4 +111,4 @@ const createPost = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getUserPosts, createPost};
+export {getUserPosts, createPost, deletePost};
