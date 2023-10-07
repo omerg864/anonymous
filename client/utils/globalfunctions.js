@@ -13,6 +13,45 @@ const timeToString = (date) => {
     return date.toLocaleTimeString("en-GB");
 }
 
+
+// TODO: add progress bar
+const addToast = (message, header, sub_header, num) => {
+    const toastContainer = $("#toast-container");
+    const toastHtml = `<div class="toast toast-tran" role="alert" aria-live="assertive" aria-atomic="true" id="errorToast-${num}" style="opacity: 0;">
+                <div class="toast-header">
+                    <img src="../../src/Anonymous_logo.png" height="20px" width="20px" class="rounded me-2" alt="..."><img>
+                    <strong class="me-auto" id="toast-header">${header}</strong>
+                    <small id="toast-sub-header">${sub_header}</small>
+                    <button type="button" class="btn-close" id="close-toast-${num}" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="toast-body">
+                ${message}
+                </div>
+            </div>`
+    toastContainer.prepend(toastHtml)
+    const toast = $(`#errorToast-${num}`);
+    const closeToast = $(`#close-toast-${num}`);
+    closeToast.click(() => {
+        hideToast(num);
+    });
+    toast.show();
+    toast.css('opacity', '0');
+    setTimeout(() => {
+        toast.css('opacity', '1');
+    }, 100);
+    setTimeout(() => {
+        hideToast(num);
+    }, 5000);
+}
+
+const hideToast = (num) => {
+    const toast = $(`#errorToast-${num}`);
+    toast.css('opacity', '0');
+    setTimeout(() => {
+        toast.remove();
+    }, 500);
+}
+
 // TODO: add editable
 const insertPosts = (posts, postsContainer, editable, page) => {
         if(posts.length === 0) {
@@ -111,4 +150,4 @@ const debounce = (func, timeout = 300) => {
     };
   }
 
-export {dateToString, timeToString, insertPosts, debounce};
+export {dateToString, timeToString, insertPosts, debounce, addToast};

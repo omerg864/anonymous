@@ -61,8 +61,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     toggleHeader.click(() => {
         nav.toggleClass("close");
     });
-
-
     toggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     });
