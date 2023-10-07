@@ -170,21 +170,24 @@ const toggleSavedPost = asyncHandler(async (req, res, next) => {
         res.status(400);
         throw new Error('Post not found');
     }
-    if(user.savedPosts.includes(postId)) {
-        user.savedPosts = user.savedPosts.filter((id) => id != postId);
-        await user.save();
-        res.status(200).json({
-            success: true,
-            message: 'Post unsaved successfully'
-        });
+    let saved = false;
+    for(let i = 0; i < user.savedPosts.length; i++) {
+        if(user.savedPosts[i].toString() === postId) {
+            saved = true;
+            break;
+        }
+    }
+
+    if(saved) {
+        user.savedPosts = user.savedPosts.filter((id) => id.toString() !== postId);
     } else {
         user.savedPosts.push(postId);
-        await user.save();
-        res.status(200).json({
-            success: true,
-            message: 'Post saved successfully'
-        });
     }
+    await user.save();
+    res.status(200).json({
+        success: true,
+        saved: !saved
+    });
 });
 
 const getGroups = asyncHandler(async (req, res, next) => {

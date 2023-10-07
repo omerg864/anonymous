@@ -489,6 +489,10 @@ footer a:hover{
     color: #ff0000;
 }
 
+.save {
+    cursor: pointer;
+}
+
 .post {
     width: 100%;
     display: flex;

@@ -7,26 +7,26 @@ const main = $('#main');
 const spinner = $('#spinner');
 var user = null;
 
-    window.getProfileMap = async () => {
-        var map = new Microsoft.Maps.Map('#address-map');
-        await fetchProfileData();
-        if(user && user.location) {
-            let location = user.location;
-            let latLon = new Microsoft.Maps.Location(location.coordinates[1], location.coordinates[0]);
-            let pin = new Microsoft.Maps.Pushpin(latLon);
-            map.entities.push(pin);
-            map.setView({ mapTypeId: Microsoft.Maps.MapTypeId.roadId,
-                center: new Microsoft.Maps.Location(location.coordinates[1], location.coordinates[0]),
-                zoom: 12 });
-        } else {
-            let latLon = new Microsoft.Maps.Location(25, -71);
-            let pin = new Microsoft.Maps.Pushpin(latLon);
-            map.entities.push(pin);
-            map.setView({ mapTypeId: Microsoft.Maps.MapTypeId.roadId,
-                center: new Microsoft.Maps.Location(25, -71),
-                zoom: 5 });
-        }
+window.getProfileMap = async () => {
+    var map = new Microsoft.Maps.Map('#address-map');
+    await fetchProfileData();
+    if(user && user.location) {
+        let location = user.location;
+        let latLon = new Microsoft.Maps.Location(location.coordinates[1], location.coordinates[0]);
+        let pin = new Microsoft.Maps.Pushpin(latLon);
+        map.entities.push(pin);
+        map.setView({ mapTypeId: Microsoft.Maps.MapTypeId.roadId,
+            center: new Microsoft.Maps.Location(location.coordinates[1], location.coordinates[0]),
+            zoom: 12 });
+    } else {
+        let latLon = new Microsoft.Maps.Location(25, -71);
+        let pin = new Microsoft.Maps.Pushpin(latLon);
+        map.entities.push(pin);
+        map.setView({ mapTypeId: Microsoft.Maps.MapTypeId.roadId,
+            center: new Microsoft.Maps.Location(25, -71),
+            zoom: 5 });
     }
+}
 
 $(window).scroll(function() {
     let hash = window.location.hash;
@@ -39,7 +39,7 @@ $(window).scroll(function() {
             }
         }
     }
- });
+});
 
 const semiProfile = () => {
     const post = $('#post');

@@ -62,16 +62,28 @@ const insertPosts = (posts, postsContainer, editable, page) => {
             for(let i = 0; i< posts.length; i++) {
                 let content = '';
                 let isCanvas = false;
-                if(posts[i].type == 'text'){
-                    content = `<p class="post-main-content">${posts[i].content}</p>`;
-                } else if(posts[i].media) {
-                    content = `<p class="post-main-content">${posts[i].content}</p>
+                let type = posts[i].type.split(',');
+                switch(type[0]) {
+                    case 'text':
+                        content = `<p class="post-main-content">${posts[i].content}</p>`;
+                        break;
+                    case 'image':
+                        content = `<p class="post-main-content">${posts[i].content}</p>
                             <img src="${posts[i].media}" alt="post media" class="post-media">`;
-                } else {
-                    isCanvas = true;
-                    content = `<div style="padding: 1rem;">
+                        break;
+                    case 'video':
+                        //TODO: add video tag
+                        content = `<p class="post-main-content">${posts[i].content}</p>`;
+                        break;
+                    case 'canvas':
+                        isCanvas = true;
+                        content = `<div style="padding: 1rem;">
                                     <canvas id="canvas-${i}" class="post-canvas"></canvas>
                                 </div>`
+                        break;
+                    case 'view':
+                        content = `<div style="padding: 1rem; ${type[1]}">${posts[i].content}</div>`;
+                        break;
                 }
                 let liked = posts[i].liked ? 
                 `<i class='bx bxs-like' style="color: var(--primary-color)"></i>` :
@@ -91,9 +103,10 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                                                         <i class='bx bx-dots-vertical'></i>
                                                     </button>
                                                     <ul class="dropdown-menu drop-position">
-                                                        <li><a class="dropdown-item" href="?id=${posts[i]._id}#editPost">Edit</a></li>
+                                                        <li><a class="dropdown-item save" id="save-${posts[i]._id}">${posts[i].saved ? "remove from saved": "save"}</a></li>
+                                                        ${editable ? `<li><a class="dropdown-item" href="?id=${posts[i]._id}#editPost">Edit</a></li>` : ""}
                                                         <li><a class="dropdown-item" href="?postId=${posts[i]._id}#report">Report</a></li>
-                                                        <li><a class="dropdown-item delete" id="delete-${posts[i]._id}" >Delete</a></li>
+                                                        ${editable ? `<li><a class="dropdown-item delete" id="delete-${posts[i]._id}" >Delete</a></li>` : ""}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -122,6 +135,25 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                 postsContainer.append(postArticle);
                 const likeBtn = $(`#like-${posts[i]._id}`);
                 const commentBtn = $(`#comment-${posts[i]._id}`);
+                const deleteBtn = $(`#delete-${posts[i]._id}`);
+                const saveBtn = $(`#save-${posts[i]._id}`);
+                saveBtn.on('click', async () => {
+                    const token = localStorage.getItem('token');
+                    saveBtn.css( "pointer-events", "none" );
+                    await $.ajax({url: `${window.location.origin}/api/user/save/post/${posts[i]._id}`, headers: {
+                        authorization: `Bearer ${token}`
+                    }, success: function(result){
+                        console.log(result);
+                        if(result.saved) {
+                            saveBtn.html(`remove from saved`);
+                        } else {
+                            saveBtn.html(`save`);
+                        }
+                    }, type: "PUT", contentType: "application/json", error: function(err){
+                        addToast(err.responseJSON.message, "Error", "try again later");
+                    }});
+                    saveBtn.css( "pointer-events", "all" );
+                });
                 likeBtn.on('click', async () => {
                     const token = localStorage.getItem('token');
                     const likesCounter = $(`#likes-counter-${posts[i]._id}`);
@@ -144,23 +176,11 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                 commentBtn.on('click', () => {
                     window.location.href = `?id=${posts[i]._id}#post`;
                 });
-                const deleteBtn = $(`#delete-${posts[i]._id}`);
                 deleteBtn.on('click', () => {
                     // TODO: open modal to delete
                 });
                 if(isCanvas) {
-                    const canvas = document.getElementById(`canvas-${i}`);
-                    if(canvas) {
-                    const ctx = canvas.getContext('2d');
-                    const canvas_data = posts[i].type.split(',');
-                    const color = canvas_data[0];
-                    const background = canvas_data[1];
-                    ctx.font="3rem Comic Sans MS";
-                    ctx.fillStyle = color;
-                    ctx.textAlign = "center";
-                    canvas.style.background = background;
-                    ctx.fillText(posts[i].content, canvas.width/2, canvas.height/2);
-                    }
+                    // TODO: canvas
                 }
             }
         }
