@@ -65,10 +65,14 @@ const addPostData = async (posts, userId=undefined, savedPosts=undefined) => {
             post["editable"] = false;
         }
         delete post["user"];
-        if(userId && userId in post.likes) {
-            post["liked"] = true;
-        } else {
-            post["liked"] = false;
+        post["liked"] = false;
+        if(userId) {
+            for(let j = 0; j < post.likes.length; j++) {
+                if(post.likes[j].toString() == userId.toString()) {
+                    post["liked"] = true;
+                    break;
+                }
+            }
         }
         post["likes"] = post["likes"].length;
         let comments = await Comment.find({post: post._id}).count();

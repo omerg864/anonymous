@@ -5,6 +5,7 @@
     --body-color: #18191a;
     --sidebar-color: #242526;
     --primary-color: #4e86bd;
+    --primary-color-active: #36608a;
     --text-color: #ccc;
 
     /* ====== Transition ====== */
@@ -446,6 +447,147 @@ footer a:hover{
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* ===== Posts ===== */
+
+.btn-icon {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.4rem;
+    border-radius: 50%;
+    padding: 0 0.3rem;
+    transition: var(--tran-03);
+}
+
+.btn-icon:hover {
+    color: var(--primary-color);
+    background-color: rgba(190, 189, 189, 0.339);
+}
+
+.drop-position {
+    right: 0;
+
+}
+
+.btn-icon:hover ~ .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu:hover {
+    display: block;
+}
+
+.delete {
+    color: red;
+    cursor: pointer;
+}
+
+.delete:hover {
+    color: #ff0000;
+}
+
+.post {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    flex: 1;
+    font-family: 'Garamond', 'Arial Narrow', Arial, sans-serif;
+}
+
+.post-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.post-container {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+}
+
+.post-icon {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+}
+
+.post-main-content {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+    font-weight: 500;
+}
+
+.post-media {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+}
+
+.post-canvas {
+    width: 100%;
+}
+
+.profile-grid {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.post-btns {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.post-btn {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+}
+.post-btn:hover {
+    background-color: var(--primary-color-active) !important;
+}
+
+.post-btn:active {
+    background-color: var(--primary-color) !important;
+    border: none !important;
+}
+
+.post-btn:disabled {
+    background-color: #e6e6e67b !important;
+    border: none !important;
+}
+
+.post-reactions {
+    display: flex;
+    justify-content: space-between;
+    padding: 1px;
+}
+
+.post-counter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 

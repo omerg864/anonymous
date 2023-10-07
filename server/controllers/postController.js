@@ -58,6 +58,32 @@ const deletePost = asyncHandler(async (req, res, next) => {
     });
 });
 
+const toggleLikePost = asyncHandler(async (req, res, next) => {
+    const post = await Post.findById(req.params.id);
+    if(!post) {
+        res.status(400);
+        throw new Error('Post not found');
+    }
+    let liked = false;
+    for(let i = 0; i < post.likes.length; i++) {
+        if(post.likes[i].toString() == req.user._id.toString()) {
+            liked = true;
+            break;
+        }
+    }
+    if(liked) {
+        post.likes = post.likes.filter((id) => id.toString() !== req.user._id.toString());
+    } else {
+        post.likes.push(req.user._id);
+    }
+    await post.save();
+    res.status(200).json({
+        success: true,
+        liked: !liked,
+        likes: post.likes.length
+    });
+});
+
 
 const createPost = asyncHandler(async (req, res, next) => {
     const {content, type, media} = req.body;
@@ -111,4 +137,4 @@ const createPost = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getUserPosts, createPost, deletePost};
+export {getUserPosts, createPost, deletePost, toggleLikePost};
