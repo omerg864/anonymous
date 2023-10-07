@@ -1,6 +1,7 @@
 import * as nodemailer from 'nodemailer';
 import Comment from '../models/commentModel.js';
 import User from '../models/userModel.js';
+import jwt from 'jsonwebtoken';
 
 const sendMail = (receiver, subject, text) => {
     let mailTransporter = nodemailer.createTransport({
@@ -25,6 +26,15 @@ const sendMail = (receiver, subject, text) => {
         }
     });
 };
+
+const decodeToken = (token) => {
+    try {
+        return jwt.verify(token, process.env.JWT_SECRET).id;
+    }
+    catch(err) {
+        return null;
+    }
+}
 
 const countChar = (str, char) => {
     let count = 0;
@@ -74,4 +84,4 @@ const addPostData = async (posts, userId=undefined, savedPosts=undefined) => {
     return tempPosts;
 }
 
-export { sendMail, countChar, addPostData };
+export { sendMail, countChar, addPostData, decodeToken };

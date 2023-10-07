@@ -1,8 +1,8 @@
 import express from 'express';
 import {getProfile, registerUser, loginUser, verifyUserEmail, 
     toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts
-    , getGroups, toggleJoinedGroup} from '../controllers/userController.js';
-import {protectUser, verifyUser} from '../middleware/authMiddleware.js';
+    , getGroups, toggleJoinedGroup, banUser} from '../controllers/userController.js';
+import {protectAdmin, protectUser, verifyUser} from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -20,6 +20,8 @@ router.route('/save/post/:id').put(protectUser, toggleSavedPost);
 
 router.route('/groups').get(protectUser, getGroups);
 router.route('/join/group/:id').put(protectUser, toggleJoinedGroup);
+
+router.route('/ban').put(protectAdmin, banUser);
 
 router.route('/verify/:id').get(verifyUserEmail);
 

@@ -240,6 +240,22 @@ const toggleJoinedGroup = asyncHandler(async (req, res, next) => {
     });
 });
 
+const banUser = asyncHandler(async (req, res, next) => {
+    const {id, reason } = req.body;
+    const user = await User.findById(id);
+    if(!user) {
+        res.status(400);
+        throw new Error('User not found');
+    }
+    user.ban = true;
+    user.banReason = reason;
+    await user.save();
+    res.status(200).json({
+        success: true,
+        message: 'User banned successfully'
+    });
+});
+
 
 const getProfile = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
@@ -300,4 +316,4 @@ const verifyUserEmail = asyncHandler(async (req, res, next) => {
 });
 
 
-export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts, getGroups, toggleJoinedGroup};
+export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts, getGroups, toggleJoinedGroup, banUser};

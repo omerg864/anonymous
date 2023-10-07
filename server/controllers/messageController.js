@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Message from '../models/messageModel.js';
 import User from '../models/userModel.js';
 import Chat from '../models/chatModel.js';
+import { wss } from '../server.js';
 
 
 // TODO: test with blocked users data
@@ -41,11 +42,26 @@ const newMessage = asyncHandler(async (req, res, next) => {
         text,
         chatId: chat._id
     });
+    await WSsendNewMessage(newMessage, chat);
     res.status(200).json({
         success: true,
         message: newMessage
     });
 });
+
+const WSsendNewMessage = async (message, chat) => {
+    wss.clients.forEach(function each(client) {
+        for(let i = 0; i < chat.users.length; i++){
+            if(chat.users[i]._id.equals(client.id)){
+                client.send(JSON.stringify({
+                    type: 'newMessage',
+                    message: message,
+                    chat: chat
+                }));
+            }
+        }
+    });
+};
 
 
 export {newMessage};

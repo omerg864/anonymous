@@ -58,6 +58,10 @@ const userScheme = mongoose.Schema({
         type: Boolean,
         required: false
     },
+    banReason: {
+        type: String,
+        required: false
+    },
     resetToken: {
         type: String,
         required: false

@@ -4,6 +4,24 @@ import { registerPage } from './pages/register/Register.js';
 import {LoginPage} from "./pages/login/login.js";
 
 
+
+const socket = new WebSocket(`ws://${window.location.host}?token=${localStorage.getItem('token')}`);
+
+// Connection opened
+socket.addEventListener('open', function (event) {
+    console.log('Connected to WS Server')
+});
+
+// Listen for messages
+socket.addEventListener('message', function (event) {
+    console.log('Message from server ', event.data);
+});
+
+socket.addEventListener('close', function (event) {
+    console.log('Disconnected from WS Server')
+});
+
+
 window.addEventListener("popstate", (event) => {
     let hash = window.location.hash;
     let main = $('#main');
@@ -60,6 +78,7 @@ const switchPage = (page) => {
                 $('#spinner').removeClass('d-none');
                 break;
             case 'chats':
+                socket.send('chats');
                 fetchChatsData();
                 break;
             case 'verify':

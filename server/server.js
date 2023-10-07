@@ -15,6 +15,10 @@ import reportRouter from './routes/reportRoutes.js';
 import chatRouter from './routes/chatRoute.js';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
+import http from 'http';
+import { WebSocketServer } from "ws";
+import url from 'url';
+import { decodeToken } from "./utils/globalFunctions.js";
 
 
 connectDB();
@@ -25,11 +29,20 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+const server = http.createServer(app);
+
+const wss = new WebSocketServer({ server: server });
+
+wss.on('connection', function connection(ws, req) {
+  const parameters = url.parse(req.url, true);
+  ws.id = decodeToken(parameters.query.token);
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
@@ -50,3 +63,5 @@ app.use('/api/chat', chatRouter);
   })
 
 app.use(errorHandler);
+
+export { wss };
