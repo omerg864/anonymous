@@ -78,6 +78,10 @@ const semiProfile = () => {
 }
 
 const fetchProfileData = async () => {
+    const newPost = $('#post');
+    newPost.on("click", ()=> {
+        window.location.href = '?#newPost'
+    });
     localStorage.setItem('RemPosts', true);
     localStorage.setItem('page', 0);
     await Promise.allSettled([getUserData(), getMorePosts()])
@@ -104,7 +108,6 @@ const getUserData = async () => {
         insertUserData(result.user, result.editable);
         user = result.user;
     }, type: "GET", contentType: "application/json", error: function(err){
-        console.log(err.responseJSON);
         if(err.responseJSON.message !== 'User not found') {
             semiProfile();
         } else {
