@@ -6,6 +6,7 @@ import Hashtag from '../models/hashtagModel.js';
 import { POST_LIMIT } from '../utils/consts.js';
 import { countChar } from '../utils/globalFunctions.js';
 import { addPostData } from '../utils/globalFunctions.js';
+import { twitterClient } from '../config/twitter.js';
 
 const getUserPosts = asyncHandler(async (req, res, next) => {
     let id = req.params.id;
@@ -57,6 +58,7 @@ const createPost = asyncHandler(async (req, res, next) => {
         media,
         user: req.user._id
     });
+    let tweetInfo = null;
     if(post) {
         for(let i = 0; i < hashtags.length; i++) {
             let hashtag = await Hashtag.findOne({name: hashtags[i]});
@@ -71,10 +73,19 @@ const createPost = asyncHandler(async (req, res, next) => {
             hashtag.posts.push(post._id);
             await hashtag.save();
         }
+        if(req.user.admin){
+            const twitter = twitterClient();
+            tweetInfo = await twitter.v2.tweet(content);
+            if(tweetInfo) {
+                post.tweetId = tweetInfo.data.id;
+                await post.save();
+            }
+        }
     }
     res.status(200).json({
         success: true,
-        post: post
+        post: post,
+        tweet: tweetInfo
     });
 });
 

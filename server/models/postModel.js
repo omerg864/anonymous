@@ -18,6 +18,10 @@ const postScheme = mongoose.Schema({
         type: String,
         required: true
     },
+    tweetId: {
+        type: String,
+        required: false
+    },
     media: {
         type: String,
         required: false

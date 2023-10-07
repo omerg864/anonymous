@@ -1,10 +1,9 @@
-import express from "express";
 import dotenv from "dotenv";
+import express from "express";
 import path from "path";
 import colors from 'colors';
 import { errorHandler } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
-const config = dotenv.config();
 import userRouter from './routes/userRoutes.js';
 import postRouter from './routes/postRoutes.js';
 import hashtagRouter from './routes/hashtagRoutes.js';
@@ -19,6 +18,8 @@ import http from 'http';
 import { WebSocketServer } from "ws";
 import url from 'url';
 import { decodeToken } from "./utils/globalFunctions.js";
+
+const config = dotenv.config();
 
 
 connectDB();
