@@ -49,23 +49,9 @@
 }
 
 .settings-button {
-    width: fit-content;
-    height: fit-content;
-    margin-left: auto;
-    border-radius: 50%;
     position: absolute;
-    right: 5px;
-    top: 5px;
-    color: white;
-    transition: all 0.3s ease-in-out;
-}
-
-.settings-button:hover {
-    background-color: #e6e6e6;
-}
-
-.settings-button:hover > svg {
-    color: black;
+    right: 10px;
+    top: 10px;
 }
 
 .profile-map {
