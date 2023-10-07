@@ -53,7 +53,6 @@ const hideToast = (num) => {
     }, 500);
 }
 
-// TODO: add editable
 const insertPosts = (posts, postsContainer, editable, page) => {
         if(posts.length === 0) {
             postsContainer.append(`<h2>No ${page ? "More" : ""} Posts To show</h2>`);
@@ -72,8 +71,8 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                             <img src="${posts[i].media}" alt="post media" class="post-media">`;
                         break;
                     case 'video':
-                        //TODO: add video tag
-                        content = `<p class="post-main-content">${posts[i].content}</p>`;
+                        content = `<p class="post-main-content">${posts[i].content}</p>
+                        <video controls class="post-media"> src="${posts[i].media}" alt="post media"></video>`;
                         break;
                     case 'canvas':
                         isCanvas = true;
@@ -82,7 +81,7 @@ const insertPosts = (posts, postsContainer, editable, page) => {
                                 </div>`
                         break;
                     case 'view':
-                        content = `<div style="padding: 1rem; ${type[1]}">${posts[i].content}</div>`;
+                        content = `<div class="w-100" style="padding: 1rem; ${type[1]}">${posts[i].content}</div>`;
                         break;
                 }
                 let liked = posts[i].liked ? 
