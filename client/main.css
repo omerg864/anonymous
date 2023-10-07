@@ -56,17 +56,41 @@ main {
     height: 1rem;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-}
-
 .full {
     width: 100% !important;
     height: 100% !important;
+}
+
+.new-btn {
+    min-width: fit-content;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+
+
+
+/* ===== Forms CSS ===== */
+
+.form {
+    padding: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.suggest-bing {
+    width: calc(100% - 1rem);
+    padding: 0 !important;
+    padding-left: 1rem !important;
+    padding-top: 0.5rem !important;
 }
 
 .input {
@@ -120,10 +144,7 @@ footer {
     align-items: center;
 }
 
-.new-btn {
-    min-width: fit-content;
-}
-
+/* ===== Sidebar ===== */
 
 .sidebar * {
     margin: 0;
@@ -132,7 +153,6 @@ footer {
     font-family: "Poppins", sans-serif;
 }
 
-/* ===== Sidebar ===== */
 .sidebar {
     width: 250px;
     padding: 10px 14px;
@@ -348,6 +368,7 @@ footer{
     justify-content: space-between;
     bottom: 0;
     position: absolute;
+    left: 0;
 }
 
 footer a{
@@ -448,6 +469,18 @@ footer a:hover{
     }
     .header {
         padding-left: 0;
+    }
+}
+
+@media only screen and (max-width: 900px)  {
+    .col-900 {
+        flex-direction: column !important;
+    }
+    .mb-3-900 {
+        margin-bottom: 10px !important;
+    }
+    .box {
+        width: 100%;
     }
 }
 
