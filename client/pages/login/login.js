@@ -1,8 +1,6 @@
 import { addToast } from "../../utils/globalFunctions.js";
 import {emailRegex} from "../../utils/regex.js";
 
-var toastNum = 1;
-
 var userError = $("#user-Error");
 var emailError = $("#email-error");
 const checkEmail = () => {
@@ -42,7 +40,7 @@ const login = () => {
             localStorage.setItem("token",result.user.token)
             window.location.href="#home";
         }, data: JSON.stringify(data), type: "POST", contentType: "application/json", error: function (err) {
-            addToast(err.responseJSON.message, "Error", "try again", toastNum);
+            addToast(err.responseJSON.message, "Error", "try again");
             toastNum++;
         }
     });

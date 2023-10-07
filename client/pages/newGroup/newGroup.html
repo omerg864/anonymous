@@ -5,7 +5,27 @@
 </head>
 <div class="background2 rounded p-3 m-3 box">
     <h1 style="color: white;">New Group</h1>
-    
+    <form class="form" id="new-group-form">
+          <div class="row w-100">
+                <div class="col">
+                    <div class="form-floating">
+                        <input type="text" class="form-control background1 input" id="name" placeholder="Name" required>
+                        <label for="name" class="input-label">Name</label>
+                    </div>
+                    <small id="name-error" class="redColor">&nbsp;</small>
+                </div>
+          </div>
+          <div class="row w-100">
+            <div class="col">
+                    <div class="form-floating">
+                        <textarea class="form-control background1 input" id="desc" rows="3"></textarea>
+                        <label for="desc" class="input-label">Description</label>
+                    </div>
+                <small id="desc-error" class="redColor">&nbsp;</small>
+            </div>
+      </div>
+          <button class="btn btn-primary" type="submit">Create</button>
+    </form>
 </div>
 <script type="module" src="/pages/newGroup/newGroup.js"></script>
 </html>

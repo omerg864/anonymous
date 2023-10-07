@@ -15,7 +15,8 @@ const timeToString = (date) => {
 
 
 // TODO: add progress bar
-const addToast = (message, header, sub_header, num) => {
+const addToast = (message, header, sub_header) => {
+    const num = Math.floor(Math.random() * 1000000);
     const toastContainer = $("#toast-container");
     const toastHtml = `<div class="toast toast-tran" role="alert" aria-live="assertive" aria-atomic="true" id="errorToast-${num}" style="opacity: 0;">
                 <div class="toast-header">
@@ -145,9 +146,32 @@ const insertPosts = (posts, postsContainer, editable, page) => {
 const debounce = (func, timeout = 300) => {
     let timer;
     return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
     };
-  }
+}
 
-export {dateToString, timeToString, insertPosts, debounce, addToast};
+const validateClass = (element, isValid) =>{
+    if(isValid) {
+        element.hasClass("is-invalid") ? element.removeClass("is-invalid") : null;
+        element.hasClass("is-valid") ? null : element.addClass("is-valid");
+    } else {
+        element.hasClass("is-valid") ? element.removeClass("is-valid") : null;
+        element.hasClass("is-invalid") ? null : element.addClass("is-invalid");
+    }
+}
+
+const checkEmpty = (element, elementError) => {
+    if(element.val() === ""){
+        validateClass(element, false);
+        elementError.html("Please fill this");
+        return true;
+    } else {
+        validateClass(element, true);
+        elementError.html("&nbsp;");
+        return false;
+    }
+}
+
+
+export {dateToString, timeToString, insertPosts, debounce, addToast, validateClass, checkEmpty};

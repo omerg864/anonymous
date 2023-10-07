@@ -150,6 +150,10 @@ main {
     align-items: center;
 }
 
+textarea {
+    height: 8rem !important;
+}
+
 /* ===== Sidebar ===== */
 
 .sidebar * {

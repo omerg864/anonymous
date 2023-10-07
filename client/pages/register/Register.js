@@ -1,6 +1,6 @@
 
 import { emailRegex, passwordRegex } from "../../utils/regex.js";
-import { dateToString, debounce } from "../../utils/globalFunctions.js";
+import { dateToString, debounce, checkEmpty, validateClass } from "../../utils/globalFunctions.js";
 
 var map, searchManager, location;
 
@@ -79,15 +79,6 @@ const geocode = () => {
     //Make the geocode request.
     searchManager.geocode(searchRequest);
 }
-    const validateClass = (element, isValid) =>{
-        if(isValid) {
-            element.hasClass("is-invalid") ? element.removeClass("is-invalid") : null;
-            element.hasClass("is-valid") ? null : element.addClass("is-valid");
-        } else {
-            element.hasClass("is-valid") ? element.removeClass("is-valid") : null;
-            element.hasClass("is-invalid") ? null : element.addClass("is-invalid");
-        }
-    }
     const registerPage = () => {
         let form = document.querySelector("#register-form");
         var f_name = $("#f_name");
@@ -149,6 +140,10 @@ const geocode = () => {
             location = null;
             geocode();
             checkEmpty(address, addressError);
+            if(!location) {
+                addressError.html('Please select a location from the dropdown');
+                validateClass(address, false);
+            }
         }, 700));
         const register = () => {
             let data = {
@@ -213,25 +208,8 @@ const geocode = () => {
             }
         }
     
-        const checkEmpty = (element, elementError) => {
-            if(element.val() === "" || !location){
-                validateClass(element, false);
-                elementError.html("Please select a location from the dropdown");
-                return true;
-            } else {
-                validateClass(element, true);
-                elementError.html("&nbsp;");
-                return false;
-            }
-        }
-    
         const checkFields = () => {
             let valid = true;
-
-            if(location == null){
-                addressError.html("Please select a location from the dropdown");
-                valid = false;
-            }
     
             if(!checkPassword()) {
                 valid = false;
@@ -251,6 +229,10 @@ const geocode = () => {
             }
     
             if(checkEmpty(address, addressError)){
+                valid = false;
+            }
+            if(!location) {
+                addressError.html('Please select a location from the dropdown');
                 valid = false;
             }
     
