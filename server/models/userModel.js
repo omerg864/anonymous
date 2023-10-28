@@ -56,7 +56,8 @@ const userScheme = mongoose.Schema({
     },
     ban: {
         type: Boolean,
-        required: false
+        required: true,
+        default: false
     },
     banReason: {
         type: String,

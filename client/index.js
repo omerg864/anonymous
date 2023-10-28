@@ -3,6 +3,7 @@ import { verifyUser } from './pages/verify/verify.js';
 import { registerPage } from './pages/register/Register.js';
 import {LoginPage} from "./pages/login/login.js";
 import { setHeader } from './utils/globalFunctions.js';
+import { fetchBanData } from './pages/ban/ban.js';
 
 
 
@@ -90,6 +91,9 @@ const switchPage = (page) => {
                 break;
             case 'login':
                 LoginPage();
+                break;
+            case 'ban':
+                fetchBanData();
                 break;
         }
     });

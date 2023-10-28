@@ -1,8 +1,9 @@
 import express from 'express';
 import {getProfile, registerUser, loginUser, verifyUserEmail, 
     toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts
-    , getGroups, toggleJoinedGroup, banUser} from '../controllers/userController.js';
+    , getGroups, toggleJoinedGroup, banUser, getBannedUsers} from '../controllers/userController.js';
 import {protectAdmin, protectUser, verifyUser} from '../middleware/authMiddleware.js';
+import { get } from 'mongoose';
 
 const router = express.Router();
 
@@ -22,6 +23,7 @@ router.route('/groups').get(protectUser, getGroups);
 router.route('/join/group/:id').put(protectUser, toggleJoinedGroup);
 
 router.route('/ban').put(protectAdmin, banUser);
+router.route('/ban').get(protectAdmin, getBannedUsers);
 
 router.route('/verify/:id').get(verifyUserEmail);
 

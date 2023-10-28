@@ -8,6 +8,7 @@ import { emailRegex, passwordRegex } from '../utils/regex.js';
 import { sendMail } from '../utils/globalFunctions.js';
 import { addPostData } from '../utils/globalFunctions.js';
 import Group from '../models/groupModel.js';
+import { BAN_USER_LIST_LIMIT } from '../utils/consts.js';
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -130,12 +131,12 @@ const loginUser = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
     let user = await User.findOne({ "email" : { $regex : new RegExp(`^${email}$`, 'i') } });
     if (!user) {
-        res.status(400)
+        res.status(400);
         throw new Error('Invalid email or password');
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        res.status(400)
+        res.status(400);
         throw new Error('Invalid email or password');
     }
     if(!user.verified) {
@@ -148,7 +149,6 @@ const loginUser = asyncHandler(async (req, res, next) => {
     delete user._doc["updatedAt"]
     delete user._doc["__v"]
     delete user._doc["_id"]
-    delete user._doc["admin"]
     res.status(200).json({
         success: true,
         user: {
@@ -318,5 +318,20 @@ const verifyUserEmail = asyncHandler(async (req, res, next) => {
     });
 });
 
+const getBannedUsers = asyncHandler(async (req, res, next) => {
+    const page = req.query.page || 0;
+    const search = req.query.search;
+    let users;
+    if(search) {
+        users = await User.find({  ban: true , $or : [{f_name: { $regex: search, $options: 'i' }}, {l_name: { $regex: search, $options: 'i' }} ,{banReason: { $regex: search, $options: 'i' }} ]}).limit(BAN_USER_LIST_LIMIT).skip(BAN_USER_LIST_LIMIT * page);
+    } else {
+        users = await User.find({ ban: true }).limit(BAN_USER_LIST_LIMIT).skip(BAN_USER_LIST_LIMIT * page);
+    }
+    res.status(200).json({
+        success: true,
+        users: users
+    });
+});
 
-export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts, getGroups, toggleJoinedGroup, banUser};
+
+export {getProfile, registerUser, loginUser, verifyUserEmail, toggleSavedPost, getHashtags, toggleSavedHashtag, getSavedPosts, getGroups, toggleJoinedGroup, banUser, getBannedUsers};
