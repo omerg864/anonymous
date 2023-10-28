@@ -2,6 +2,7 @@ import { fetchChatsData } from './pages/chats/chats.js';
 import { verifyUser } from './pages/verify/verify.js';
 import { registerPage } from './pages/register/Register.js';
 import {LoginPage} from "./pages/login/login.js";
+import { setHeader } from './utils/globalFunctions.js';
 
 
 
@@ -64,6 +65,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     toggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     });
+
+    setHeader();
 });
 
 const switchPage = (page) => {

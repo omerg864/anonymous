@@ -1,4 +1,4 @@
-import { addToast } from "../../utils/globalFunctions.js";
+import { addToast, setHeader } from "../../utils/globalFunctions.js";
 import {emailRegex} from "../../utils/regex.js";
 
 var userError = $("#user-Error");
@@ -36,8 +36,9 @@ const login = () => {
     $.ajax({
         url: `${window.location.origin}/api/user/login`, success: function (result) {
             console.log(result);
-            localStorage.setItem("user",JSON.stringify(result.user))
-            localStorage.setItem("token",result.user.token)
+            localStorage.setItem("user",JSON.stringify(result.user));
+            localStorage.setItem("token",result.user.token);
+            setHeader();
             window.location.href="#home";
         }, data: JSON.stringify(data), type: "POST", contentType: "application/json", error: function (err) {
             addToast(err.responseJSON.message, "Error", "try again");

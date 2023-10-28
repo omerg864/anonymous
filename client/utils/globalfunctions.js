@@ -215,5 +215,21 @@ const checkEmpty = (element, elementError) => {
     }
 }
 
+const setHeader = () => {
+    const header_user_name = $('#header-user-name');
+    const header_user_image = $('#header-user-image');
+    const header_user_status = $('#header-user-status');
+    if(localStorage.getItem('token') && localStorage.getItem('user')){
+        let user = JSON.parse(localStorage.getItem('user'));
+        header_user_name.text(user.f_name + ' ' + user.l_name);
+        if(user.profile_pic) {
+            header_user_image.attr('src', user.profile_pic);
+        }
+        if(user.admin) {
+            header_user_status.text('Admin');
+        }
+    }
+}
 
-export {dateToString, timeToString, insertPosts, debounce, addToast, validateClass, checkEmpty};
+
+export {dateToString, timeToString, insertPosts, debounce, addToast, validateClass, checkEmpty, setHeader};
