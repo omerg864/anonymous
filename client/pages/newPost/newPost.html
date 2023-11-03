@@ -1,7 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <link rel="stylesheet" href="/pages/newPost/newPost.css">
 </head>
-    asfsafasf
+    <div class="background2 rounded p-3 m-3 box">
+        <h1 style="color: white;">New Group</h1>
+        <form class="form" id="new-post-form">
+            <div class="row w-100 mb-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            <select class="form-select background1 input" id="type" aria-label="Type" required>
+                                <option selected value="text">Text</option>
+                                <option value="image">Image</option>
+                                <option value="video">Video</option>
+                                <option value="canvas">Canvas</option>
+                                <option value="view">View</option>
+                            </select>
+                            <label for="type" class="input-label">Post Type</label>
+                        </div>
+                    </div>
+            </div>
+            <div class="row w-100">
+                <div class="col">
+                        <div class="form-floating">
+                            <textarea class="form-control background1 input" id="text" rows="3"></textarea>
+                            <label for="text" class="input-label">Text</label>
+                        </div>
+                    <small id="text-error" class="redColor">&nbsp;</small>
+                </div>
+        </div>
+        <div class="row w-100 d-none" id="fileContainer">
+            <div class="col">
+                    <label for="formFileSm" class="form-label">file</label>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file">
+            </div>
+        </div>
+        <div class="row col-900 w-100 mb-3 d-none" id="colorContainer">
+            <div class="col mb-3-900">
+                <input type="color" class="form-control form-control-color" id="fontColor" value="#563d7c" title="Choose your font color">
+                <label for="fontColor" class="form-label">Color picker</label>
+            </div>
+            <div class="col">
+                <input type="color" class="form-control form-control-color" id="backgroundColor" value="#563d7c" title="Choose your background color">
+                <label for="backgroundColor" class="form-label">Color picker</label>
+            </div>
+        </div>
+        <div class="row w-100 mb-3 d-none" id="fontContainer">
+            <div class="col">
+                <div class="form-floating">
+                    <select class="form-select background1 input" id="font" aria-label="Font">
+                        <option selected value="">regular</option>
+                    </select>
+                    <label for="type" class="input-label">Font Type</label>
+                </div>
+            </div>
+        </div>
+        <div class="row w-100 mb-3 d-none" id="canvasContainer">
+            <div class="col">
+                    <canvas id="canvas"></canvas>
+            </div>
+        </div>
+            <button class="btn btn-primary" type="submit">Create</button>
+        </form>
+    </div>
+    <script type="module" src="/pages/newPost/newPost.js"></script>
 </html>
